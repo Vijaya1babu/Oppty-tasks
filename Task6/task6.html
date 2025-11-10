@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task6</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .main-content {
+            flex: 3;
+            min-width: 300px;
+        }
+        
+        .sidebar {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        article {
+            background:linear-gradient(135deg, #989aa4 0%, #48454b 100%);;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        article h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        article p {
+            margin-bottom: 1rem;
+        }
+        
+        
+        .sidebar-widget {
+            background: linear-gradient(135deg, #b6b9c4 0%, #535057 100%);;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar-widget h3 {
+            color: #764ba2;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tag {
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #333;
+            color: white;
+            margin-top: 2rem;
+            border-radius: 10px;
+        }
+        
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .content-wrapper {
+                flex-direction: column;
+            }
+            
+            article, .sidebar-widget {
+                padding: 1rem;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            header {
+                padding: 1rem 0;
+            }
+            
+            header h1 {
+                font-size: 1.5rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1> HTML TUTORIALS</h1>
+            <nav>
+            <ul style="list-style-type: none; margin: 0; padding: 0; display: flex; justify-content: center; gap: 20px;">
+                <li><a href="Inroduction.html" style="color:bisque; text-decoration: none;">Introduction</a></li>
+                <li><a href="Elements.html" style="color: bisque; text-decoration: none;">Elements and Tags</a></li>
+                <li><a href="Attributes.html" style="color: bisque; text-decoration: none;">Attributes</a></li>
+                <li><a href="Formatting.html" style="color:bisque; text-decoration: none; border-radius: 10%;">Text Formatting</a></li>
+                
+            </ul>
+        </nav>
+        </header>
+        
+        <div class="content-wrapper">
+            <main class="main-content">
+                <article>
+                    <h2>Welcome to HTML Tutorials</h2>
+                    <p>Welcome to <strong>HTML Tutorials</strong>, your trusted platform for clear, simple, and practical learning!
+Our goal is to make education easy, engaging, and accessible for everyone. Whether you’re a beginner exploring new topics or a student looking to strengthen your skills, we provide step-by-step tutorials, examples, and guides to help you learn faster and smarter.
+
+At LearnSmart, we believe that learning should be simple and enjoyable. Our team of passionate educators and developers works hard to create high-quality content covering web development, programming, digital marketing, design, and more. Each tutorial is carefully written to explain complex concepts in a way that anyone can understand.
+
+We’re constantly updating our content to keep up with the latest technologies and trends, ensuring that you always learn what’s most relevant.</p>
+                    
+                </article>
+                
+                <article>
+                    <h2>Mission and vision </h2>
+                    <h3>Our Mission</h3>
+                    <p>Our mission is to empower learners worldwide by providing free, easy-to-understand, and practical educational content that builds confidence, creativity, and real-world skills. We aim to make learning enjoyable and effective for students of all backgrounds.</p>
+                    <h3>Our Vision</h3>
+                    <p>Our vision is to become a global learning community where knowledge is shared freely, and everyone has equal access to quality education. We strive to inspire lifelong learners who grow through collaboration, innovation, and continuous learning.</p>
+                </article>
+            </main>
+            
+            <aside class="sidebar">
+                <div class="sidebar-widget">
+                    <h3>&#128100; About the Blog</h3>
+                    <p>This blog covers web development, HTML, CSS, JavaScript, and responsive design techniques.</p>
+                </div>
+                
+                <div class="sidebar-widget">
+                    <h3>&#128279; Popular Posts</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #eee;">
+                            <a href="Inroduction.html" style="text-decoration: none; color: #667eea;">&rarr; Introduction To <HTML></HTML></a>
+                        </li>
+                        <li style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #eee;">
+                            <a href="Elements.html" style="text-decoration: none; color: #667eea;">&rarr; Elements and Tags</a>
+                        </li>
+                        <li style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #eee;">
+                            <a href="Attributes.html" style="text-decoration: none; color: #667eea;">&rarr; Attributes</a>
+                        </li>
+                        <li>
+                            <a href="Formatting.html" style="text-decoration: none; color: #667eea;">&rarr; Text formatting</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-widget">
+                    <h3>&#127991; Categories</h3>
+                    <div class="tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Responsive</span>
+                        <span class="tag">Web Design</span>
+                        <span class="tag">Tutorials</span>
+                    </div>
+                </div>
+                
+                <div class="sidebar-widget">
+                    <h3>&#9993; Subscribe</h3>
+                    <p>Get the latest posts delivered to your inbox.</p>
+                    <form style="margin-top: 15px;">
+                        <input type="email" placeholder="Your email" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <button type="submit" style="width: 100%; padding: 10px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">Subscribe &#10148;</button>
+                    </form>
+                </div>
+            </aside>
+        </div>
+        
+        <footer>
+            <footer style="background-color: #333; color: white; text-align: center; padding: 20px;">
+        <p>&copy; Teja Tutorials. All rights reserved.</p>
+        <address>
+            Contact: <a href="mailto:achantatejasaivijayababu@gmail.com" style="color: white;">achantatejasaivijayababu@gmail.com</a>
+        </address>
+        </footer>
+    </div>
+</body>
+</html>
