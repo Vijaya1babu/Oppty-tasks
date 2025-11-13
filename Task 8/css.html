@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teja’s CSS Web Page</title>
+  <style>
+   
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      color: #333;
+      line-height: 1.6;
+      background-color: antiquewhite;
+    }
+    body h3{
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: rgb(17, 18, 18);
+        text-align: center;
+    }
+    body ul{
+        list-style-type: circle; 
+    }
+
+    
+    header {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+      margin: 10px 0 5px;
+      font-size: 2.4em;
+      letter-spacing: 1.5px;
+      color: #fff7e6;
+    }
+
+    
+    main {
+      max-width: 1000px;
+      margin: 30px auto;
+      display: grid;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .box {
+      background-color: white;
+      padding: 25px;
+      border-radius: 12px;
+      transition: all 0.4s ease;
+      text-align: justify;
+    }
+
+    .box:hover {
+      transform: scale(1.04);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+      background: linear-gradient(135deg, #f7f7f7, #e0e0e0);
+    }
+
+    
+    #box1 { border: 5px solid #ff6b6b; }
+    #box2 { border: 5px solid #ee5a24; }
+    #box3 { border: 5px solid #667eea; }
+    #box4 { border: 6px solid #764ba2; }
+    #box5 { border: 5px solid #00b894; }
+    #box6 { border: 5px solid #0984e3; }
+
+    
+    .navigation {
+      display: flex;
+      justify-content:left;
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    .nav-button {
+      text-align: center;
+      padding: 10px 25px;
+      background: #ff6b6b;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      
+    }
+
+    .nav-button:hover {
+      background: #ee5a24;
+    }
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+<a id="top"></a>
+
+<header>
+  <h1>INTRODUCTION TO CSS</h1>
+</header>
+
+<main>
+  <div id="box1" class="box">
+    <h3>BASICS OF CSS</h3>
+    <p>CSS (Cascading Style Sheets) is used to style and design web pages. It defines how HTML elements should look — including colors, fonts, spacing, and layout. It helps separate the structure (HTML) from the presentation (CSS), making websites easier to maintain and more visually attractive.</p>
+    <p>There are three ways to use CSS:</p>
+    <ul>
+      <li><b>Inline CSS:</b> Written directly in the HTML tag using the style attribute.</li>
+      <li><b>Internal CSS:</b> Written inside the &lt;style&gt; tag in the HTML document.</li>
+      <li><b>External CSS:</b> Written in a separate .css file and linked to the HTML using &lt;link&gt; tag.</li>
+    </ul>
+    <p>Among these, external CSS is preferred because it keeps design and structure separate, allowing easy updates across multiple web pages.</p>
+  </div>
+
+  <div id="box2" class="box">
+    <h3> SELECTORS AND PROPERTIES</h3>
+    <p>Selectors are patterns used to target HTML elements for styling. CSS properties define what style to apply. Each property has a value that specifies how it should behave.</p>
+    <p><b>Example:</b> <code>p { color: blue; font-size: 18px; }</code></p>
+    <p>Common selectors include:</p>
+    <ul>
+      <li><b>Element selector:</b> Targets all elements of a type</li>
+      <li><b>Class selector:</b> Targets elements with a specific class</li>
+      <li><b>ID selector:</b> Targets a unique element</li>
+      <li><b>Universal selector:</b> Uses to target all elements.</li>
+      <li><b>Group selector:</b> Combines multiple selectors</li>
+  </div>
+
+  <div id="box3" class="box">
+    <h3> COLORS AND BACKGROUNDS</h3>
+    <p>CSS supports multiple ways to define colors such as names (<code>red</code>), HEX codes (<code>#ff0000</code>), RGB (<code>rgb(255,0,0)</code>), and HSL (<code>hsl(0,100%,50%)</code>)).</p>
+    <p>Backgrounds can include solid colors, gradients, or images:</p>
+    <ul>
+      <li><b>background-color:</b> Sets a solid background color.</li>
+      <li><b>background-image:</b> Adds an image as a background.</li>
+      <li><b>background-repeat:</b> Controls if the image repeats.</li>
+      <li><b>background-size:</b> Adjusts how the image fits the area.</li>
+      <li><b>background: linear-gradient(...)</b> creates smooth color transitions.</li>
+    </ul>
+   
+  </div>
+
+  <div id="box4" class="box">
+    <h3> BORDERS AND MARGINS</h3>
+    <p>Borders are lines around elements. CSS supports many styles: solid, dashed, dotted, double, groove, and ridge.</p>
+    <ul>
+      <li><b>border-style:</b> Defines type (solid, dashed, etc.).</li>
+      <li><b>border-width:</b> Sets thickness.</li>
+      <li><b>border-color:</b> Defines color.</li>
+      <li><b>border-radius:</b> Rounds corners of the element.</li>
+    </ul>
+    <p>Margins create space outside elements, while padding creates space inside. Together, they help control layout spacing.</p>
+  </div>
+
+  <div id="box5" class="box">
+    <h3> CSS BOX MODEL</h3>
+    <p>Every element in HTML is considered a rectangular box made up of four parts:</p>
+    <ul>
+      <li><b>Content:</b> The actual text or image inside the element.</li>
+      <li><b>Padding:</b> The space between content and the border.</li>
+      <li><b>Border:</b> The outer edge surrounding padding and content.</li>
+      <li><b>Margin:</b> The space outside the border that separates elements.</li>
+    </ul>
+    <p>Understanding the box model helps in accurate alignment and spacing control on web pages.</p>
+  </div>
+
+  <div id="box6" class="box">
+    <h3> TRANSITIONS AND ANIMATIONS</h3>
+    <p>CSS transitions and animations make web pages look dynamic and interactive. They allow smooth changes between styles over time.</p>
+    <ul>
+      <li><b>transition-property:</b> The property to animate.</li>
+      <li><b>transition-duration:</b> The time the transition takes.</li>
+      <li><b>transition-timing-function:</b> The speed curve of the transition.</li>
+      <li><b>animation:</b> Used with keyframes to create complex motion effects.</li>
+    </ul>
+    
+  </div>
+
+  <nav class="navigation">
+    <a href="task8.html" class="nav-button">← Home</a>
+  </nav>
+</main>
+
+<center><a href="#top" class="top-btn">⬆ Back to Top</a></center>
+
+<footer>
+  &copy; 2025 Teja | Designed with  using HTML & CSS
+</footer>
+
+</body>
+</html>
