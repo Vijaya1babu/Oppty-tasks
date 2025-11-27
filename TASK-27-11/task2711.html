@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Marks Calculator</title>
+
+    <style>
+        body{
+            background-image: url(12.png);
+             background-repeat: no-repeat;
+            background-size: cover; 
+            height: 100vh;
+        }
+        .container {
+            width: 350px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 2px solid #000;
+            border-radius: 10px;
+            background: #d2bdbd;
+            box-shadow: 0 0 10px rgba(20, 15, 15, 0.3);
+        }
+
+        .container:hover{
+             background: #dad5d5;
+        }
+
+        .container h2{
+            text-align: center;
+        }
+
+        input {
+            
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 2px solid #0a0909;
+        }
+
+        label {
+              font-size: 18px;
+              font-weight: bold;
+              color: rgb(74, 42, 42);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+
+
+        button:hover {
+            background: #ccc9c9;
+        }
+
+        span {
+            color: rgb(11, 11, 11);
+            font-weight: bold;
+
+            
+        }
+        #output{
+            font-family:Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            color: black;
+            
+        
+        }
+        #output h3 {
+            margin: 0;
+            color: rgb(51, 37, 106);
+            text-decoration:underline;
+             text-decoration-color:black;
+             text-align: center;
+        }
+
+        .lab{
+            color: cadetblue;
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Marks Calculator</h2>
+
+        <span>*</span> <label>Name:</label><br>
+        <input type="text" id="name" placeholder="Enter your Name" required><br>
+
+        <span>*</span> <label>Subject 1:</label><br>
+        <input type="number" id="m1" placeholder="Enter your subject 1 marks" required min="0"  max="100"><br>
+
+        <span>*</span> <label>Subject 2:</label><br>
+        <input type="number" id="m2" placeholder="Enter your subject 2 marks" required min="0"  max="100"><br>
+
+        <span>*</span> <label>Subject 3:</label><br>
+        <input type="number" id="m3" placeholder="Enter your subject 3 marks" required min="0" max="100"><br>
+
+        <button onclick="calculate()">Calculate</button>
+
+        
+        <p id="output"></p>
+    </div>
+
+    <script>
+        function calculate() {
+            
+            let studentName = document.getElementById("name").value;
+            let s1 = Number(document.getElementById("m1").value);
+            let s2 = Number(document.getElementById("m2").value);
+            let s3 = Number(document.getElementById("m3").value);
+             if (s1 < 0 || s2 < 0 || s3 < 0) {
+                alert("Marks cannot be negative! Please enter valid marks.");
+                return; 
+            }
+
+           
+            let total = s1 + s2 + s3;
+            let avg = total / 3;
+            let grade = avg >= 90 ? "A" : avg >= 70 ? "B" : avg >= 50 ? "C" : "Fail";
+            let status = grade === "Fail" ? " Failed" : " Passed";
+            
+            let student = {
+                name: studentName,
+                marks: [s1, s2, s3],
+                total: total,
+                average: avg.toFixed(2),
+                grade: grade,
+                status: status
+
+                
+            };
+
+         
+            document.getElementById("output").innerHTML =
+                "<h3>Result</h3>"+"<br><br>"+
+               "<span class='lab'>Name </span>"+ student.name + "<br><br>" +
+                "<span class='lab'>Marks: </span>" +"<br><br>"+"Subject 1:"+ student.marks[0] +"<br>"+"Subject 2:"+ student.marks[1]+"<br>"+"Subject 3:"+ student.marks[2]+"<br><br>"+
+                "<span class='lab'>Total: </span>" + student.total + "<br><br>" +
+                "<span class='lab'>Average:</span>" + student.average + "<br><br>" +
+                "<span class='lab'>Grade: </span>" + student.grade + "<br><br>"+
+                "<span class='lab'>Status: </span>" + student.status;
+        }
+    </script>
+
+</body>
+</html>
