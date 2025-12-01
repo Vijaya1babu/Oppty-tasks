@@ -427,10 +427,6 @@ tr:last-child td{border-bottom:none;}
     
 }
 
-
-
-
-
 .scroll-mouse {
     position: absolute;
     top: 82vh;
@@ -500,7 +496,7 @@ tr:last-child td{border-bottom:none;}
         font-size: 14px;
     }
 
-    /* HERO */
+    
     .hero {
         flex-direction: column;
         text-align: center;
@@ -516,7 +512,7 @@ tr:last-child td{border-bottom:none;}
         margin-top: 15px;
     }
 
-    /* PRICES TABLE */
+
     table {
         display: block;
         overflow-x: auto;
@@ -528,7 +524,7 @@ tr:last-child td{border-bottom:none;}
         width: 18px;
     }
 
-    /* FEATURES */
+    
     .features-container {
         flex-direction: column;
         gap: 25px;
@@ -539,7 +535,6 @@ tr:last-child td{border-bottom:none;}
         text-align: center;
     }
 
-    /* DOWNLOAD SECTION */
     .download-section {
         flex-direction: column;
         text-align: center;
@@ -567,7 +562,7 @@ tr:last-child td{border-bottom:none;}
         font-size: 16px;
     }
 
-    /* SUBSCRIBE */
+  
     .subscribe-box {
         flex-direction: column;
         gap: 10px;
@@ -585,7 +580,7 @@ tr:last-child td{border-bottom:none;}
         font-size: 15px;
     }
 
-    /* FOOTER */
+    
     .footer-container {
         grid-template-columns: 1fr 1fr;
         gap: 20px;
@@ -604,3 +599,4 @@ tr:last-child td{border-bottom:none;}
         font-size: 18px;
     }
 }
+
