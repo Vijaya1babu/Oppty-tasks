@@ -7,9 +7,10 @@
 }
 
 body{
-    background-color:#3b0073;
+
     color:white;
     overflow-x:hidden;
+     background-color:#3b0073;
 }
 
 
@@ -19,6 +20,7 @@ header{
     display:flex;
     justify-content:space-between;
     align-items:center;
+     background-color:#3b0073;
 }
 
 header figure{
@@ -73,6 +75,8 @@ nav a{
     justify-content:space-between;
     align-items:center;
     padding:120px 80px;
+     background-color:#3b0073;
+
 }
 .hero h1{
     font-size:52px;
@@ -87,21 +91,6 @@ nav a{
 .hero-img{
     width:460px;
 }
-
-
-.wave{
-    width: 100%;
-    height: 180px;
-    background: #0b0042;
-    position: relative;
-
-    clip-path: polygon(
-      0% 40%, 10% 48%, 20% 55%, 30% 60%,
-      40% 70%, 50% 70%, 60% 65%, 70% 60%,
-      80% 55%, 90% 48%, 100% 40%, 100% 100%, 0% 100%
-    );
-}
-
 
 .prices{
     text-align:center;
@@ -477,9 +466,141 @@ tr:last-child td{border-bottom:none;}
     50% { transform: translate(-50%, -12px); }
     100% { transform: translate(-50%, 0); }
 }
+@media (max-width: 768px) {
 
+    
 
+    header {
+        flex-direction: column;
+        padding: 15px 20px;
+        text-align: center;
+    }
 
+    header figure {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 10px;
+    }
 
+    nav a {
+        font-size: 14px;
+    }
 
+    .btn {
+        margin-top: 10px;
+        padding: 8px 18px;
+        font-size: 14px;
+    }
+
+    /* HERO */
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 50px 20px;
+    }
+
+    .hero-img {
+        width: 90%;
+        margin-top: 20px;
+    }
+
+    .scroll-mouse {
+        margin-top: 15px;
+    }
+
+    /* PRICES TABLE */
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        font-size: 13px;
+    }
+
+    table img.coin {
+        width: 18px;
+    }
+
+    /* FEATURES */
+    .features-container {
+        flex-direction: column;
+        gap: 25px;
+        padding: 20px;
+    }
+
+    .feature {
+        text-align: center;
+    }
+
+    /* DOWNLOAD SECTION */
+    .download-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 20px;
+    }
+
+    .right-images .phone {
+        width: 60%;
+        margin: 25px auto;
+    }
+
+    .store-btn {
+        width: 140px;
+        margin: 10px;
+    }
+
+    /* PROGRAM CARDS */
+    .program-cards {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding: 20px;
+    }
+
+    .card-body h4 {
+        font-size: 16px;
+    }
+
+    /* SUBSCRIBE */
+    .subscribe-box {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .subscribe-box input {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .subscribe-box button {
+        width: 100%;
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    /* FOOTER */
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .social-icons a {
+        font-size: 18px;
+    }
+}
