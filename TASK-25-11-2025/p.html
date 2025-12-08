@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,3 +96,102 @@
 
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    font-family: Arial;
+    background: linear-gradient(90deg, rgb(177, 227, 177), white);
+  }
+
+  .card {
+    width: 300px;
+    padding: 20px;
+    background: white;
+    margin: 50px auto;
+    border-radius: 10px;
+    transition: 0.3s;
+    box-shadow: 0 0 5px gray;
+    text-align: left;
+    border: 2px solid black;
+  }
+
+  .card h3 {
+    text-align: center;
+    color: black;
+    text-decoration: underline;
+  }
+
+  .card:hover {
+    background: linear-gradient(90deg, green, white);
+    box-shadow: 0 0 15px black;
+    cursor: pointer;
+  }
+
+  button {
+    padding: 10px 40px;
+    border: none;
+    background: black;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  button:hover {
+    background: #444;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h3>Personal Details</h3>
+  <p id="output"></p>
+  <button onclick="changeName()">Change Name</button>
+</div>
+
+<script>
+  
+  const person = {
+    name: "Teja",
+    qualification: "M-tech",
+    dob: "09-10-2002",
+    age: "23",
+    hobbies: "Listening music"
+  };
+
+  
+  var msg;
+
+  function showDetails() {
+    msg =
+      "Name: " + person.name + "<br><br>" +
+      "Qualification: " + person.qualification + "<br><br>" +
+      "DOB: " + person.dob + "<br><br>" +
+      "Age: " + person.age + "<br><br>" +
+      "Hobbies: " + person.hobbies;
+
+    document.getElementById("output").innerHTML = msg;
+  }
+
+  showDetails();
+
+  function changeName() {
+  
+    let newName = "Vijay";
+    person.name = newName;
+
+    showDetails();
+  }
+</script>
+
+</body>
+</html>
+>>>>>>> d013dfb2ad2d7f452dee5aae7360f32c373ee44a

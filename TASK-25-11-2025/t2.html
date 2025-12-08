@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,3 +63,69 @@ function checkNumber() {
 
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    text-align: center;
+    padding-top: 50px;
+    font-family: Arial;
+    
+  }
+
+  input {
+    padding: 10px;
+    font-size: 18px;
+    border: 2px solid black;
+    border-radius: 8px;
+    width: 200px;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin-left: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: gray;
+  }
+
+  p {
+    font-size: 22px;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<input id="num" type="text" placeholder="Enter number">
+<button onclick="checkNumber()">Check</button>
+
+<p id="res"></p>
+
+<script>
+function checkNumber() {
+  let n = Number(document.getElementById("num").value);
+
+  if (n % 2 == 0) {
+    document.body.style.backgroundColor = "green";
+    document.getElementById("res").innerHTML = n + " is EVEN";
+  } else {
+    document.body.style.backgroundColor = "red";
+    document.getElementById("res").innerHTML = n + " is ODD";
+  }
+}
+</script>
+
+</body>
+</html>
+>>>>>>> d013dfb2ad2d7f452dee5aae7360f32c373ee44a
