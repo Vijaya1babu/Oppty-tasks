@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Survey Form</h1>
+
+<div class="container">
+
+    <p>Let us know how we can improve our service</p>
+
+    <form>
+
+        <div class="row">
+            <label for="name"><span>*</span>Name:</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+        </div>
+
+        <div class="row">
+            <label for="email"><span>*</span>Email:</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="row">
+            <label for="age"><span>*</span>Age:</label>
+            <input type="number" id="age" placeholder="Age" min="1" max="100" required>
+        </div>
+
+        <div class="row">
+            <label for="phone"><span>*</span>Handphone:</label>
+            <input type="tel" id="phone" placeholder="Phone Number" required patten="[+]{1}[9]{1}[1]{1}[6-9]\d{9}" maxlength="10" >
+        </div>
+
+        <div class="row">
+            <label for="first-time"><span>*</span>First time playing Escape Room?</label>
+            <select id="first-time" required>
+                <option value="" disabled selected>Select an option</option>
+                <option>First-Timer</option>
+                <option>Never played before</option>
+            </select>
+        </div>
+
+        <div class="row top-align">
+            <label for="games"><span>*</span>Which game you played?</label>
+            <div class="options" id="games">
+                <label><input type="checkbox" id="exodus"> Exodus</label>
+                <label><input type="checkbox" id="alcatraz"> Alcatraz</label>
+                <label><input type="checkbox" id="aokigahara"> Aokigahara</label>
+                <label><input type="checkbox" id="mausoleum"> Mausoleum</label>
+                <label><input type="checkbox" id="castiglione"> Castiglione</label>
+            </div>
+        </div>
+
+        <div class="row top-align">
+            <label for="recommend">Will you recommend the game to your friends?</label>
+            <div class="options" id="recommend">
+                <label><input type="radio" name="rec" value="yes"> Yes</label>
+                <label><input type="radio" name="rec" value="maybe"> Maybe</label>
+                <label><input type="radio" name="rec" value="no"> No</label>
+            </div>
+        </div>
+
+        <div class="textarea-block">
+            <label for="comments">Any comments or suggestions?</label><br><br><br>
+            <textarea id="comments" placeholder="Enter your comment here..." rows="5"></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

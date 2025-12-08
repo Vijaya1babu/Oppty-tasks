@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM Forms Example</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        input, select, textarea { margin-bottom: 10px; padding: 5px; width: 200px; display: block; }
+        #result { margin-top: 20px; padding: 10px; border: 1px solid #333; background: #f0f0f0; width: 300px; }
+    </style>
+</head>
+<body>
+
+<h1>DOM Forms Example</h1>
+
+<form id="myForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" placeholder="Enter your name">
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" placeholder="Enter your email">
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" placeholder="Enter your age">
+
+    <label for="gender">Gender:</label>
+    <select id="gender">
+        <option value="">Select</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select>
+
+    <label for="bio">Bio:</label>
+    <textarea id="bio" placeholder="Write something about yourself"></textarea>
+
+    <button type="button" onclick="submitForm()">Submit</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+// ====================================================
+// Accessing Form Elements
+// ====================================================
+const form = document.getElementById("myForm");
+
+// ====================================================
+// Function to submit the form
+// ====================================================
+function submitForm() {
+    // Get values
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const age = document.getElementById("age").value;
+    const gender = document.getElementById("gender").value;
+    const bio = document.getElementById("bio").value;
+
+    // ====================================================
+    // Validation
+    // ====================================================
+    if (name === "" || email === "" || age === "" || gender === "") {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
+    // ====================================================
+    // Display Values in the result div
+    // ====================================================
+    const resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = `
+        <h3>Form Submitted Successfully!</h3>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Age:</strong> ${age}</p>
+        <p><strong>Gender:</strong> ${gender}</p>
+        <p><strong>Bio:</strong> ${bio}</p>
+    `;
+
+    // ====================================================
+    // Change input dynamically (optional)
+    // ====================================================
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("age").value = "";
+    document.getElementById("gender").value = "";
+    document.getElementById("bio").value = "";
+}
+
+// ====================================================
+// Additional Example: Real-time input change
+// ====================================================
+document.getElementById("name").addEventListener("input", function() {
+    console.log("Typing Name:", this.value);
+});
+</script>
+
+</body>
+</html>

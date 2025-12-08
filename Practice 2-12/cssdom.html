@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM CSS - Multiple Colors</title>
+    <style>
+        #myDiv {
+            width: 250px;
+            height: 150px;
+            background-color: lightblue;
+            color: black;
+            text-align: center;
+            line-height: 150px;
+            font-size: 20px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            transition: all 0.5s;
+        }
+
+        button {
+            padding: 5px 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Change Multiple Colors Dynamically</h2>
+
+<div id="myDiv">Hello World!</div>
+
+<button onclick="changeColors()">Change Colors</button>
+<button onclick="resetStyle()">Reset Style</button>
+
+<script>
+// ====================================================
+// Access the div element
+// ====================================================
+const myDiv = document.getElementById("myDiv");
+
+// Array of background colors
+const bgColors = ["lightblue", "orange", "green", "purple", "pink", "yellow"];
+// Array of text colors
+const textColors = ["black", "white", "yellow", "lightgreen", "red", "blue"];
+
+// Index to keep track of current color
+let colorIndex = 0;
+
+// ====================================================
+// Function to change multiple colors dynamically
+// ====================================================
+function changeColors() {
+    // Change background and text color
+    myDiv.style.backgroundColor = bgColors[colorIndex];
+    myDiv.style.color = textColors[colorIndex];
+
+    // Move to next color
+    colorIndex++;
+    if (colorIndex >= bgColors.length) {
+        colorIndex = 0; // Reset index if we reach the end
+    }
+}
+
+// ====================================================
+// Reset to original style
+// ====================================================
+function resetStyle() {
+    myDiv.style.backgroundColor = "lightblue";
+    myDiv.style.color = "black";
+    colorIndex = 0; // Reset color index
+}
+</script>
+
+</body>
+</html>

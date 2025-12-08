@@ -1,0 +1,124 @@
+
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:"Poppins",sans-serif;
+    }
+
+    body{
+        background:#0f0f1a;
+        color:white;
+    }
+
+    .team-wrapper{
+        display:flex;
+        min-height:100vh;
+    }
+
+ 
+    .left-banner{
+        width:45%;
+        background:url("../assets/team5.png") no-repeat center/cover;
+        filter:brightness(0.7);
+    }
+
+    
+    .right-content{
+        width:55%;
+        padding:50px 40px;
+        overflow-y:auto;
+    }
+
+    .team-container{
+        max-width:900px;
+        margin:auto;
+        text-align:left;
+    }
+
+    .team-container h1{
+        font-size:36px;
+        margin-bottom:10px;
+        text-align: center;
+    }
+
+    .team-container p{
+        color:#d0d0d0;
+        margin-bottom:30px;
+        font-size:16px;
+        text-align: center;
+    }
+
+   
+    .team-cards{
+        display:flex;
+        flex-wrap:wrap;
+        gap:20px;
+    }
+
+    .team-card{
+        background:#1a1a2e;
+        width:240px;
+        padding:20px;
+        border-radius:12px;
+        text-align:center;
+        transition:0.2s ease;
+        border:1px solid #2a2a40;
+    }
+
+    .team-card:hover{
+        transform:translateY(-5px);
+        border-color:#6f42ff;
+    }
+
+    .team-img{
+        width:100px;
+        height:100px;
+        border-radius:50%;
+        overflow:hidden;
+        margin:auto;
+        margin-bottom:10px;
+    }
+
+    .team-img img{
+        width:100%;
+        height:100%;
+    }
+
+    .role{
+        color:#6f42ff;
+        font-size:14px;
+        margin-bottom:10px;
+    }
+
+    .team-card p{
+        font-size:14px;
+        color:#cfcfcf;
+        margin-bottom:10px;
+    }
+
+    .social-icons a{
+        margin:0 6px;
+        color:white;
+        text-decoration:none;
+        font-size:18px;
+    }
+
+    .social-icons a:hover{
+        color:#6f42ff;
+    }
+
+   
+    @media(max-width:900px){
+        .team-wrapper{
+            flex-direction:column;
+        }
+        .left-banner{
+            width:100%;
+            height:250px;
+        }
+        .right-content{
+            width:100%;
+        }
+    }
+

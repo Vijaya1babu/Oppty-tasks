@@ -1,0 +1,133 @@
+
+body {
+    margin: 0;
+    padding: 40px 0;
+    background: #fde3e3;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+
+h1 {
+    
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+
+.container {
+    background: white;
+    width: 70%;
+    max-width: 900px;
+    margin: auto;
+    padding: 40px 60px;
+    border-radius: 12px;
+}
+
+
+.container p {
+
+    color: #333;
+    font-weight: bold;
+    margin-top: 0;        
+    margin-bottom: 25px; 
+   
+}
+
+
+.row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.row label  {
+    width: 300px;
+    text-align: right;
+    padding-right: 20px;
+    font-size: 16px;
+    font-family: Quicksand;
+
+     
+}
+
+.row span {
+    color: rgb(7, 1, 1);
+    font-weight: bold;
+}
+
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="tel"],
+select {
+    width: 260px;
+    padding: 8px;
+    font-size: 15px;
+    border: 1px solid #bbb;
+}
+
+
+
+.top-align {
+    align-items: flex-start;
+}
+
+.options {
+    text-align: left;
+    
+}
+
+.options label {
+   
+    display: flex;         
+    align-items: center;   
+    gap: 6px;             
+    margin-bottom: 6px;
+    font-size: 16px;
+    padding-left: 25px; 
+    
+}
+
+
+
+.options input {
+    margin-right: 6px;
+}
+
+
+.textarea-block {
+    margin-top: 30px;
+}
+
+.textarea-block label {
+    font-size: 17px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+textarea {
+    width: 90%;
+    max-width: 650px;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #bbb;
+}
+
+
+.submit-btn {
+    margin-top: 25px;
+    padding: 8px 30px;
+    background: #f4a4a3;
+    border: 3px solid #150202;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    color: #333;
+    font-weight: bold;
+}
+
+.submit-btn:hover {
+    background: #fde7e7;
+}

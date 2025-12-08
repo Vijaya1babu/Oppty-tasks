@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM All Methods Example</title>
+    <style>
+        #textBox {
+            padding: 15px;
+            background: lightyellow;
+            border: 2px solid orange;
+            width: 250px;
+            margin-bottom: 10px;
+        }
+        .item { color: green; }
+    </style>
+</head>
+<body>
+
+    <h1 id="heading">Original Heading</h1>
+
+    <div id="textBox">This is a sample text box.</div>
+
+    <ul id="list">
+        <li class="item">Apple</li>
+        <li class="item">Banana</li>
+    </ul>
+
+    <button onclick="runExample()">Run All DOM Methods</button>
+
+    <script>
+
+        function runExample() {
+
+            // =====================================================
+            // 1. FINDING HTML ELEMENTS
+            // =====================================================
+
+            // Find by ID
+            const heading = document.getElementById("heading");
+
+            // Find by Tag Name
+            const listItems = document.getElementsByTagName("li");
+
+            // Find by Class Name
+            const greenItems = document.getElementsByClassName("item");
+
+
+            // =====================================================
+            // 2. CHANGING HTML ELEMENTS
+            // =====================================================
+
+            // innerHTML
+            heading.innerHTML = "Heading Changed by innerHTML";
+
+            // Change attribute
+            heading.id = "newHeadingID";
+
+            // Change CSS style
+            heading.style.color = "blue";
+
+
+            // setAttribute()
+            heading.setAttribute("title", "This is a tooltip");
+
+
+            // =====================================================
+            // 3. ADDING NEW ELEMENTS
+            // =====================================================
+
+            // Create a new <li> element
+            const newItem = document.createElement("li");
+            newItem.innerHTML = "Mango";
+            newItem.style.color = "red";
+
+            // Append new list item
+            document.getElementById("list").appendChild(newItem);
+
+
+            // =====================================================
+            // 4. REMOVING ELEMENTS
+            // =====================================================
+
+            const textBox = document.getElementById("textBox");
+            document.body.removeChild(textBox); // Removes the textBox div
+
+
+            // =====================================================
+            // 5. REPLACING ELEMENTS
+            // =====================================================
+
+            // Create a new element to replace heading
+            const newHeading = document.createElement("h2");
+            newHeading.innerHTML = "This Heading Replaced the Original";
+
+            // Replace old heading with new one
+            const oldHeading = document.getElementById("newHeadingID");
+            document.body.replaceChild(newHeading, oldHeading);
+
+
+            // =====================================================
+            // 6. document.write()
+            // =====================================================
+
+            document.write("<h3>document.write() executed - Page content replaced!</h3>");
+            document.write("This text is written directly to the document.");
+        }
+
+    </script>
+
+</body>
+</html>
