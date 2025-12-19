@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Typing Test Challenge</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="container">
+  <h1> Typing Test Challenge</h1>
+
+  <div class="settings">
+    <label>Select Time:</label>
+    <select id="timeSelect">
+      <option value="30">30 Seconds</option>
+      <option value="120">2 Minutes</option>
+      <option value="180">3 Minutes</option>
+    </select>
+
+    <button class="start-btn" onclick="startTest()">Start</button>
+    <button class="reset-btn" onclick="resetTest()">Reset</button>
+  </div>
+
+  <p id="paragraph"></p>
+
+  <textarea id="input" placeholder="Start typing here..." disabled spellcheck="false"></textarea>
+
+  <div class="info">
+    Time Left: <b id="time">0</b> sec
+  </div>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
