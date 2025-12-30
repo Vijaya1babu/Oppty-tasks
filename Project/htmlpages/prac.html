@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Form</title>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.contact-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  padding: 80px 5%;
+}
+
+.contact-image img {
+  max-width: 450px;
+  width: 100%;
+}
+
+.contact-form h2 {
+  color: #0a1f44;
+  font-size: 36px;
+  margin-bottom: 25px;
+}
+
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+}
+
+.contact-form label {
+  font-size: 15px;
+  color: #0a1f44;
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+.contact-form label span {
+  color: red;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  margin-top: 8px;
+  padding: 15px 18px;
+  border-radius: 30px;
+  border: 1px solid #dfe3e8;
+  outline: none;
+  font-size: 16px;
+}
+
+.contact-form textarea {
+  height: 130px;
+  resize: none;
+  border-radius: 20px;
+}
+
+.contact-form button {
+  margin-top: 25px;
+  padding: 15px 20px;
+  background: #f97a43;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+}
+
+.contact-form button:disabled {
+  background: #f9a27c;
+  cursor: not-allowed;
+}
+
+/* Loader */
+.loader {
+  display: none;
+  width: 22px;
+  height: 22px;
+  border: 3px solid #fff;
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Success message */
+.success-msg {
+  display: none;
+  margin-top: 20px;
+  color: #28a745;
+  font-weight: 600;
+  text-align: center;
+}
+
+.success-msg i {
+  margin-right: 8px;
+  color: #28a745;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .contact-section {
+    flex-direction: column;
+  }
+
+  .contact-form form {
+    width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="contact-section" id="contact">
+  <div class="contact-image">
+    <img src="https://illustrations.popsy.co/gray/contact.svg" alt="Contact">
+  </div>
+
+  <div class="contact-form">
+    <h2>Get in Touch!</h2>
+
+    <form id="contactForm">
+      <label>Name<span>*</span></label>
+      <input type="text" id="name" placeholder="Your Name...">
+
+      <label>Email<span>*</span></label>
+      <input type="email" id="email" placeholder="Your Email...">
+
+      <label>Message<span>*</span></label>
+      <textarea id="message" placeholder="Write a message..."></textarea>
+
+      <button type="submit" id="submitBtn">
+        <span class="btn-text">Get your Estimate</span>
+        <span class="loader" id="loader"></span>
+      </button>
+
+      <p class="success-msg" id="successMsg">
+        <i class="fa-solid fa-thumbs-up"></i>
+        Thank you! We will contact you shortly.
+      </p>
+    </form>
+  </div>
+</section>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  const loader = document.getElementById("loader");
+  const successMsg = document.getElementById("successMsg");
+  const button = document.getElementById("submitBtn");
+  const btnText = document.querySelector(".btn-text");
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if(name === "" || message === ""){
+    alert("Please fill all required fields");
+    return;
+  }
+
+  if(!emailPattern.test(email)){
+    alert("Please enter a valid email address");
+    return;
+  }
+
+  loader.style.display = "block";
+  btnText.style.display = "none";
+  successMsg.style.display = "none";
+  button.disabled = true;
+
+  setTimeout(() => {
+    loader.style.display = "none";
+    btnText.style.display = "inline";
+    successMsg.style.display = "block";
+    button.disabled = false;
+    document.getElementById("contactForm").reset();
+  }, 2000);
+});
+</script>
+
+</body>
+</html>

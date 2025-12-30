@@ -1,0 +1,243 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+ 
+  
+}
+html {
+  scroll-behavior: smooth;
+  
+
+  
+}
+
+
+header{
+  width: 100%;
+  position: sticky;
+}
+.navbar{
+  width: 100%;
+  padding: 25px 60px;
+  display: flex;
+  justify-content: space-between;
+  background-color:transparent;
+}
+
+.logo img{
+  width: 140px;   
+  height: auto;
+  
+}
+
+.nav-links{
+  display: flex;
+  gap: 40px;
+ 
+}
+
+.nav-links a{
+  text-decoration: none;
+  color: #0a1a4d;
+  font-weight: 600;
+  font-size: 18px;
+  margin-top: 18px;
+
+}
+
+.btn1{
+  text-decoration: none;
+  background: #f46b3f;
+  padding: 12px 32px;
+  border-radius: 40px;
+  font-weight: 600;
+  color: white;
+  font-size: 18px;
+  border: none;
+}
+
+.hero-section{
+   
+    display: flex;
+    align-items: center;
+    padding-left: 10%;
+    background-color: transparent;
+    height: 100vh;
+}
+.hero-content {
+    margin-left: 70px;}
+    
+.hero-content h1{
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.hero-content p{
+    width: 50%;
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+/* PLAY BUTTON */
+.video-btn{
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.play-circle{
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: #f26a34;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    margin-right: 15px;
+    font-size: 20px;
+    transition: .3s;
+}
+
+.video-btn:hover .play-circle{
+    transform: scale(1.1);
+    background: #e24d15;
+}
+
+.popup-container{
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.popup-box{
+    background: white;
+    padding: 10px;
+    position: relative;
+}
+
+.popup-box iframe{
+    width: 800px;
+    height: 450px;
+}
+
+
+.close-btn{
+    position: absolute;
+    top: -35px;
+    right: -35px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;}
+    .image1{
+  height: auto;
+  width: auto;
+}
+.img2{
+  width: auto;
+  height: auto;
+}
+.footer-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 60px;
+    background: transparent;
+    font-family: 'Poppins', sans-serif;
+}
+
+.footer-logo img {
+    width: 130px;
+    height: auto;
+}
+
+
+.footer-contact ul {
+    list-style: none;
+    display: flex;
+    gap: 45px;   
+    padding: 0;
+    margin: 0;
+    color: #7a7a7a;
+    font-size: 15px;
+}
+
+.footer-contact li i {
+    margin-right: 8px;
+    color: #6f6f6f;
+}
+
+
+.footer-social a {
+    margin-left: 18px;
+    font-size: 20px;
+    color: #0b1a4e;
+    text-decoration: none;
+}
+.footer-social a:hover {
+    color: #f56c40;
+}
+.footer-contact{
+  margin-left: -200px;
+}
+/* 630+ Bridge demos box */
+.demo-count-box{
+  position: fixed;
+  right: 2px;
+  bottom: 160px; 
+  background: #fff;
+  padding: 16px 18px;
+  border-radius: 1px;
+  text-align: center;
+  display: flex;
+
+}
+
+.demo-count-box h3{
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  color: #000;
+}
+
+.demo-count-box p{
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #555;
+}
+
+/* BUY NOW button */
+.buy-now-btn{
+  position: fixed;
+  right: 2px;
+  bottom: 95px; 
+  background: #b2342c;
+  color: #fff;
+  text-decoration: none;
+  padding: 14px 22px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+
+.buy-now-btn:hover{
+  background: #8f271f;
+}
+

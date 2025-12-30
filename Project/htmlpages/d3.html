@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brilliant Minds - Blog Details</title>
+<link rel="stylesheet" href="../css pages/d1.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+ <script src="../jspages/blogscript.js"></script>
+</head>
+<body>
+<header class="navbar">
+      <div class="logo">
+        <img src="../assests/logo.png" alt="Bridge Logo" />
+      </div>
+
+      <nav class="nav-links">
+        <a href="../index.html">HOME</a>
+        <a href="../htmlpages/about.html">ABOUT</a>
+        <a href="../htmlpages/services.html">SERVICES</a>
+        <a href="../htmlpages/blog.html">BLOG</a>
+        <a href="../htmlpages/contact.html">CONTACT</a>
+        <button class="btn1">Free Quote</button>
+      </nav>
+    </header>
+
+<main class="container">
+    <article class="blog-details">
+        <h1 class="blog-heading">Good thinking.</h1>
+
+        <figure class="blog-image">
+            <img src="../assests/blog-img-3.png">
+        </figure>
+        <section class="blog-meta">
+            <h2><span class="bm"> 06 Sep</span>Good thinking.</h2>
+            <p class="meta-text">Posted at 14:04h in <a href ="../htmlpages/d4.html">Business</a> by <a href ="../htmlpages/d4.html">admin</a> <a href="#comment">• 1 Comment •</a> <span class="likes" onclick="increaseLikes(this)">3 Likes</span></p>
+        </section>
+
+        <section class="blog-content">
+            <p>Lorem ipsum dolor sit amet, proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum<br>
+auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit<br>
+amet maorbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae <br>
+erat consequat auctor eu in elit. Classaptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos <br>
+himenaeos. Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque <br>
+elit. Sed ut imperdiet nisi. Proin condimentum fermentum nunc. Etiam pharetra. 
+            <blockquote>
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
+                eaque ipsa quae ab illo inventore veritatis et quasi.
+            </blockquote>
+
+            <p>Id velit senserit constituam eum. Ferri deleniti definitionem sea ut, mel ei oratio soluta. At altera virtute iuvaret<br>
+nam, eam maiorum invidunt ut, ne has mollis iisque. Pri at mundi soleat deserunt, cum tota appareat in. Ne duo<br>
+odio lorem commune, vocibus oporteat cu eum, ad animal timeam patrioque pri.Delectus ponderum atomorum<br>
+ne has, ut qui unum neglegentur consequuntur, erant option argumentum in vel. Est id atomorum periculis<br>
+instructior, fuisset appetere complectitur in usu. An movet liberavisse vix. Dicunt tractatos at nam, vis eu movet<br>
+facete option, ne pri dolores contentiones. Nibh lobortis adipiscing ex sed, sumo virtute copiosae pri no, te erat<br>
+feugait propriae mel eu prima.</p>
+            <div class="tags"><span class="tgs">Tags:</span><span class="tgg1"> COMMERCIAL, COMPANY, EFFICIENT, ORGANIZATION, STANDARDS</span></div>
+        </section>
+        <section class="comments" id="comment">
+
+  <div class="comment-box" data-id="1">
+    <div class="avatar">
+      <i class="fa-solid fa-circle-user"></i>
+    </div>
+
+    <div class="comment-content">
+      <h4>admin</h4>
+      <div class="meta">
+        Posted at 14:01h, 22 October
+        <span class="reply-btn" onclick="setReply(1)">REPLY</span>
+      </div>
+      <div class="comment-text">
+        Veri timeam usu at. Cu pri sanctus accusamus.
+      </div>
+      <div class="replies"></div>
+    </div>
+  </div>
+
+</section>
+<section class="comment-form">
+  <h3 id="formTitle">Post A Comment</h3>
+  <span id="cancelReply" onclick="cancelReply()">Cancel Reply</span>
+
+  <textarea id="commentText" placeholder="Write your comment here..."></textarea>
+
+  <div class="form-row">
+    <input type="text" id="name" placeholder="Your full name">
+    <input type="email" id="email" placeholder="Email address">
+    <input type="text" placeholder="Website">
+  </div>
+
+  <div id="error"></div>
+  <div class="save-info">
+  <label>
+    <input type="checkbox">
+    Save my name, email, and website in this browser for the next time I comment.
+  </label>
+</div>
+
+
+  <button class="btn" onclick="submitComment()">Submit</button>
+</section>
+    </article>
+    <aside class="sidebar">
+        <section class="sidebar-box">
+            <h3>Latest Posts</h3>
+            <div class="side-post">
+                <img src="../assests/blog-img-1.png">
+                <div class="pt">
+                <a href="../htmlpages/d1.html">Brilliant minds.</a>
+                <p> 06 September, 2019</p>
+                </div>
+        
+            </div>
+
+            <div class="side-post">
+                <img src="../assests/blog-img-2.png">
+                <div class="pt">
+                <a href="../htmlpages/d2.html">Digital Marketing.</a>
+                <p>06 September, 2019</p>
+                </div>
+                
+            </div>
+
+            <div class="side-post">
+                <img src="../assests/blog-img-3.png">
+                <div class="pt">
+                <a href="../htmlpages/d3.html">Good thinking.</a>
+                <p>06 September, 2019</p>
+                </div>
+            </div>
+                
+            </div>
+        </section>
+
+        <section class="sidebar-box4">
+            <h3>Categories</h3><br>
+            <a href="../htmlpages/d4.html">Business</a>
+        </section>
+
+
+        <section class="sidebar-box3">
+            <h3>Tags</h3>
+            <div class="tag-list">
+                <a href="../htmlpages/d4.html">COMMERCIAL,</a>
+                <a href="../htmlpages/d4.html"> COMPANY,</a>
+                <a href="../htmlpages/d4.html">EFFICIENT,</a>
+                <a href="../htmlpages/d4.html">ORGANIZATION,</a>
+                <a href="../htmlpages/d4.html">STANDARDS</a>
+            </div>
+        </section>
+
+    </aside>
+
+</main>
+  <footer class="footer-bar">
+    <div class="footer-logo">
+        <a href="../index.html"> <img src="./assests/logo.png" alt="Bridge Logo"></a>
+    </div>
+
+    <div class="footer-contact">
+        <ul>
+            <li><i class="fas fa-phone-alt"></i> 156-677-124-442-2887</li>
+            <li><i class="fas fa-envelope"></i> enquiries@bridgeseo.com</li>
+            <li><i class="fas fa-map-marker-alt"></i> 184 Main Collins Street Victoria 8007</li>
+        </ul>
+    </div>
+
+    <div class="footer-social">
+        <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://x.com/"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/?hl=en"><i class="fab fa-instagram"></i></a>
+    </div>
+</footer>
+<div class="demo-count-box">
+  <h3>630+</h3>&nbsp;
+  <p>Bridge demos</p>
+</div>
+
+<!-- BACK TO TOP -->
+<button id="backToTop" title="Back to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<script src="./jspages/script.js"></script>
+</body>
+</html>
