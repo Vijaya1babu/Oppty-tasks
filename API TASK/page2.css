@@ -1,0 +1,303 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
+
+body{
+  background:#0d0f14;
+  color:#dcdcdc;
+  line-height:1.9;
+}
+
+/* HEADER */
+header {
+    padding: 40px 20px;
+    text-align: center;
+    background: #1e2233; /* Dark background */
+}
+
+header h1 {
+    font-size: 36px;
+    font-weight: 800;
+    background: linear-gradient(90deg, #00f0ff, #00c3ff, #00aaff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text; 
+    letter-spacing: 1px;
+}
+
+.container{
+  display:flex;
+  justify-content:center;
+  padding:60px 0;
+}
+
+.blog-details{
+  width:75%;
+  background:#141824;
+  padding:50px;
+  border-radius:16px;
+}
+
+.blog-heading{
+  text-align:center;
+  font-size:44px;
+  margin-bottom:40px;
+}
+
+.blog-image img{
+  width:100%;
+  border-radius:14px;
+  margin-bottom:35px;
+}
+
+.blog-content p{
+  font-size:20px;
+  margin-bottom:25px;
+  color:#e0e0e0;
+}
+
+.add-comment-btn{
+  margin-top:40px;
+  background:#ff6a23;
+  color:#fff;
+  border:none;
+  padding:14px 34px;
+  border-radius:30px;
+  cursor:pointer;
+  font-size:16px;
+}
+
+/* COMMENTS */
+.comments{
+  margin-top:40px;
+  display:none; 
+}
+
+.comment-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.comment-title{
+  font-size:26px;
+  color:#fff;
+}
+
+#filterInput{
+  width:240px;
+  padding:8px 12px;
+  border-radius:20px;
+  background:#0f121a;
+  border:1px solid #1e2233;
+  color:#fff;
+  font-size:14px;
+}
+
+.comment-box{
+  display:flex;
+  gap:18px;
+  padding:22px;
+  margin-top:20px;
+  background:#0f121a;
+  border-radius:14px;
+  border:1px solid #1e2233;
+}
+
+.avatar{
+  font-size:50px;
+  color:#444;
+}
+
+.comment-content h4{
+  color:#fff;
+}
+
+.meta{
+  font-size:13px;
+  color:#888;
+}
+
+.comment-text{
+  margin-top:10px;
+  color:#ccc;
+}
+
+/* Comment form */
+.comment-form{
+  margin-top:35px;
+  background:#0f121a;
+  padding:30px;
+  border-radius:16px;
+  border:1px solid #1e2233;
+  position: relative; /* required for mic positioning */
+}
+
+.comment-form h3{
+  margin-bottom:15px;
+}
+
+.suggestions{
+  margin-bottom:10px;
+}
+
+.suggestion{
+  display:inline-block;
+  background:#1c2030;
+  padding:6px 14px;
+  border-radius:20px;
+  margin:5px;
+  font-size:14px;
+  cursor:pointer;
+  transition: all 0.2s;
+}
+
+.suggestion:hover{
+  background:#ff6a23;
+}
+
+
+.form-row{
+  display:flex;
+  gap:15px;
+  margin-top:15px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  background:#141824;
+  border:1px solid #1e2233;
+  color:#fff;
+  border-radius:10px;
+}
+
+
+textarea{
+  width:100%;
+  height:120px;
+  background:#141824;
+  border:1px solid #1e2233;
+  color:#fff;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:10px; /* space for mic button below */
+}
+
+.mic-btn {
+  display: inline-block; 
+  background:#1c2030;
+  border:none;
+  color:#fff;
+  padding:10px 14px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:18px;
+  transition: transform 0.2s, background 0.2s;
+  margin-bottom:15px; 
+}
+
+.mic-btn:hover {
+  transform: scale(1.1);
+  background: #ff6a23;
+}
+
+.btn{
+  margin-top:20px;
+  background:#ff6a23;
+  color:#fff;
+  border:none;
+  padding:12px 30px;
+  border-radius:25px;
+  cursor:pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.btn:hover{
+  background:#ff8b4c;
+  transform: scale(1.05);
+}
+
+/* COMMENT ACTIONS */
+.comment-box .actions span {
+  margin-right:15px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  color:#888;
+  font-size:14px;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.comment-box .actions span:hover {
+  color:#ff6a23;
+  transform: scale(1.1);
+}
+
+.comment-box .actions i {
+  font-size:16px;
+}
+
+/* Footer */
+footer {
+  background-color: #1e2233;
+  color: #777; /* updated text color */
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid #1e2233;
+}
+
+footer .social-icons {
+  margin-bottom: 10px;
+}
+
+footer .social-icons a {
+  color: #777; 
+  margin: 0 10px;
+  font-size: 20px;
+  transition: color 0.3s;
+  text-decoration: none;
+}
+
+footer .social-icons a:hover {
+  color: #f4a261;
+}
+
+footer p {
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Back to top button */
+#backToTop {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #dfd9d9;
+  color: #181717;
+  font-size: 18px;
+  cursor: pointer;
+  display: none;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#backToTop i {
+  font-size: 18px;
+}
+
+#backToTop:hover {
+  background: #f46b3f;
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API Blog Details</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="./page2.css">
+</head>
+<body>
+<header>
+  <h1>API-The Gateway to Smarter Applications</h1>
+</header>
+
+<main class="container">
+<article class="blog-details">
+
+<h1 class="blog-heading">Understanding REST APIs</h1>
+
+<div class="blog-image">
+  <img src="./photo-1555066931-4365d14bab8c.png">
+</div>
+
+<section class="blog-content">
+ <p> APIs (Application Programming Interfaces) allow different software systems to communicate with each other efficiently. They act as a bridge between applications, enabling data exchange and functionality sharing without exposing internal logic. APIs are widely used in web, mobile, and cloud-based applications to create scalable and modular systems.
+<br><br>
+
+There are different types of APIs designed for specific needs. REST APIs are the most commonly used due to their simplicity and compatibility with HTTP standards. SOAP APIs are more structured and enterprise-oriented, while GraphQL APIs allow clients to request only the data they need, improving performance and flexibility.
+<br><br>
+
+Well-designed API documentation is essential for successful integration. It clearly explains endpoints, request formats, response structures, authentication methods, and error handling. Good documentation reduces development time, minimizes errors, and improves collaboration between internal teams and external developers.
+<br><br>
+
+Performance and security are critical factors in API development. Techniques such as caching, pagination, rate limiting, and authentication help APIs handle high traffic while protecting sensitive data. Secure APIs ensure reliable communication between systems without compromising data integrity.
+<br><br>
+
+APIs play a major role in automation and digital transformation. Businesses use APIs to connect services, automate workflows, and integrate third-party platforms such as payment gateways and analytics tools. As technologies like AI, IoT, and blockchain evolve, APIs will continue to be the backbone of modern software ecosystems.<br>
+
+</section>
+
+<button class="add-comment-btn" onclick="toggleComments()">
+  Add Comment
+</button>
+
+<section class="comments" id="commentsSection">
+
+  <div class="comment-header">
+    <h2 class="comment-title">
+  Comments (<span id="commentCount">0</span>)
+</h2>
+
+    <input id="filterInput" placeholder="Search" oninput="filterComments()">
+  </div>
+
+  <div id="commentsList"></div>
+
+  <div class="comment-form">
+    <h3 id="formTitle">Post a Comment</h3>
+
+    <div class="suggestions">
+      <span class="suggestion" onclick="addSuggestion('Helpful 👍')">Helpful 👍</span>
+      <span class="suggestion" onclick="addSuggestion('Great 👌')">Great 👌</span>
+      <span class="suggestion" onclick="addSuggestion('Easy 💡')">Easy 💡</span>
+    </div>
+
+    <textarea id="commentText" placeholder="Write your comment..."></textarea>
+    <button class="mic-btn" onclick="startSpeech(this)"><i class="fa-solid fa-microphone"></i></button>
+
+    <div class="form-row">
+      <input id="nameInput" type="text" placeholder="Name">
+      <input id="emailInput" type="email" placeholder="Email">
+    </div>
+
+    <button class="btn" onclick="submitComment()">Submit</button>
+    <button class="btn" id="cancelReply" onclick="cancelReply()" style="display:none;">Cancel Reply</button>
+    <div id="error" style="color:red; margin-top:5px;"></div>
+  </div>
+
+</section>
+</article>
+</main>
+
+<footer>
+  <div class="social-icons">
+    <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+  </div>
+  <p>&copy; 2026 Teja . All Rights Reserved.</p>
+</footer>
+<button id="backToTop" title="Back to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
+<script src="./index.js"></script>
+<script src="./blogscript.js"></script>
+</body>
+</html>
