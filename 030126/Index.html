@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Interactive Web Project</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header>
+    <h1>Interactive Web Project</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Dynamic</a>
+      <a href="#">Timer</a>
+      <a href="#">Contact Form</a>
+    </nav>
+  </header>
+
+  <div class="full-width">
+    <section>
+      <h2>About This Project</h2>
+      <div class="about">
+        <div>
+          <p>This is a sample interactive web page built using HTML, CSS and JavaScript.</p>
+          <ul>
+            <li>DOM manipulation</li>
+            <li>Form validation</li>
+            <li>Event handling</li>
+            <li>Local storage</li>
+          </ul>
+        </div>
+
+        <div>
+          <iframe id="map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.7918662815996!2d78.3352966!3d17.498121899999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93d5ccaa5227%3A0xde534d4e3362e42b!2sOppty%20TechHub%20Private%20Limited!5e1!3m2!1sen!2sin!4v1767443608582!5m2!1sen!2sin">
+          </iframe>
+          <button class="btn" id="toggleMap1">Toggle Map</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="container">
+    <div>
+      <section class="todo">
+        <h2>Interactive To-Do List</h2>
+        <input id="taskInput" placeholder="New Task..." />
+        <button id="addTask">Add</button>
+        <ul id="taskList"></ul>
+        <button class="btn" id="clearTasks">Clear All Tasks</button>
+      </section>
+
+      <section class="timer">
+        <h2>Auto-Updating Timer</h2>
+        <p class="p1">This counter auto-updates every second</p>
+        <p class="p2 time">00:00:00</p>
+        <button class="pause">Pause Timer</button>
+        <button class="reset">Reset Timer</button>
+      </section>
+
+      <section>
+        <h2>Feat Hessions & Videos</h2>
+        <img id="map2" src="googl_ED.png" onclick="openMap()" />
+        <button class="btn" id="toggleMap2">Toggle Image</button>
+      </section>
+    </div>
+
+    <div>
+      <section class="timer">
+        <h2>Auto-Updating Timer</h2>
+        <p class="p1">This counter auto-updates every second</p>
+        <p class="p2 time">00:00:00</p>
+        <button class="pause">Pause Timer</button>
+        <button class="reset">Reset Timer</button>
+      </section>
+
+      <section>
+        <h2>Contact Form</h2>
+        <form id="contactForm">
+          <label>Name:<input /></label>
+          <label>Email:<input /></label>
+          <label>Password:<input type="password" /></label>
+          <label>Message:<textarea></textarea></label>
+
+          <label>
+            Subscribe to newsletter?<br>
+            <input type="radio" name="subscribe" value="yes" /> Yes <br>
+            <input type="radio" name="subscribe" value="no" /> No
+          </label>
+
+          <label>
+            Preferred Contact:<br>
+            <input type="radio" name="contact" value="email" /> Email <br>
+            <input type="radio" name="contact" value="phone" /> Phone
+          </label><br>
+
+          <button type="submit">Submit</button>
+          <button type="button" class="btn" id="clearForm">Clear Data</button>
+
+          <div class="success" id="successMsg">
+            Your information is saved in this browser!
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+
+  <footer>© 2024 Interactive Web Project | user@example.com</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
