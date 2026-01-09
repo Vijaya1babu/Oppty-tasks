@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>User Dashboard - Break System</title>
+<style>
+body{
+    font-family:Arial;
+    background:#eef1f7;
+    padding:20px;
+}
+.card{
+    background:#fff;
+    padding:15px;
+    margin-bottom:20px;
+    border-radius:6px;
+}
+.green{color:green;font-weight:bold;}
+.red{color:red;font-weight:bold;}
+.alert{
+    color:red;
+    font-weight:bold;
+}
+button{
+    padding:8px 12px;
+    cursor:pointer;
+}
+select{
+    padding:6px;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+th,td{
+    padding:8px;
+    border-bottom:1px solid #ddd;
+    text-align:left;
+}
+th{
+    background:#111;
+    color:#fff;
+}
+</style>
+</head>
+<body>
+
+<h2>User Dashboard</h2>
+
+
+<div class="card">
+<h3>Employees Overview</h3>
+<p id="stats"></p>
+</div>
+
+
+<div class="card">
+<h3>Users Status</h3>
+<table>
+<thead>
+<tr>
+<th>Username</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody id="usersStatus"></tbody>
+</table>
+</div>
+
+
+<div class="card">
+<h3>Break Management</h3>
+<select id="breakType">
+<option value="Regular">Regular</option>
+<option value="Lunch">Lunch</option>
+<option value="Tea">Tea</option>
+<option value="Personal">Personal</option>
+</select>
+<br><br>
+<button onclick="startBreak()">Start Break</button>
+<button onclick="endBreak()">End Break</button>
+
+<p id="breakStatus"></p>
+<p id="dailyTotal"></p>
+</div>
+
+<script>
+if(localStorage.getItem("role") !== "user"){
+    window.location = "login.html";
+}
+
+let currentUser = localStorage.getItem("currentUser");
+
+function getUsers(){
+    return JSON.parse(localStorage.getItem("users")) || [];
+}
+
+function saveUsers(users){
+    localStorage.setItem("users", JSON.stringify(users));
+}
+
+function isToday(ts){
+    let d = new Date(ts);
+    let t = new Date();
+    return d.toDateString() === t.toDateString();
+}
+
+function updateUI(){
+    let users = getUsers();
+    let online = 0, away = 0;
+
+    users.forEach(u=>{
+        u.status === "ONLINE" ? online++ : away++;
+    });
+
+    stats.innerHTML = `Online: <b>${online}</b> | On Break: <b>${away}</b>`;
+
+    renderUsersStatus();
+
+    let me = users.find(u => u.username === currentUser);
+    if(!me) return;
+
+    
+    let total = 0;
+    (me.breaks || []).forEach(b=>{
+        if(isToday(b.start)) total += b.duration;
+    });
+
+    dailyTotal.innerHTML = `<b>Today's Total Break:</b> ${total} mins`;
+
+    if(me.activeBreak){
+        let mins = Math.floor((Date.now() - me.activeBreak.start)/60000);
+
+        breakStatus.innerHTML = `
+        <span class="red">
+            On ${me.activeBreak.type} break<br>
+            Duration: ${mins} mins
+        </span>`;
+
+        if(mins > 60){
+            breakStatus.innerHTML += `
+            <div class="alert">⚠ Break exceeded 60 minutes!</div>`;
+        }
+    }else{
+        breakStatus.innerHTML = `<span class="green">You are Working</span>`;
+    }
+}
+
+
+function renderUsersStatus(){
+    let users = getUsers();
+    let html = "";
+
+    users.forEach(u=>{
+        html += `
+        <tr>
+            <td>${u.username}</td>
+            <td class="${u.status === "ONLINE" ? "green" : "red"}">
+                ${u.status === "ONLINE" ? "ONLINE" : "ON BREAK"}
+            </td>
+        </tr>`;
+    });
+
+    usersStatus.innerHTML = html;
+}
+
+function startBreak(){
+    let users = getUsers();
+    let me = users.find(u => u.username === currentUser);
+
+    if(me.activeBreak){
+        alert("Break already active");
+        return;
+    }
+
+    me.status = "AWAY";
+    me.activeBreak = {
+        type: breakType.value,
+        start: Date.now()
+    };
+
+    saveUsers(users);
+    updateUI();
+}
+
+function endBreak(){
+    let users = getUsers();
+    let me = users.find(u => u.username === currentUser);
+
+    if(!me.activeBreak){
+        alert("No active break");
+        return;
+    }
+
+    let end = Date.now();
+    let start = me.activeBreak.start;
+    let duration = Math.floor((end - start)/60000);
+
+    me.breaks = me.breaks || [];
+    me.breaks.push({
+        type: me.activeBreak.type,
+        start,
+        end,
+        duration
+    });
+
+    me.activeBreak = null;
+    me.status = "ONLINE";
+
+    saveUsers(users);
+    updateUI();
+}
+
+setInterval(updateUI,2000);
+updateUI();
+</script>
+
+</body>
+</html>

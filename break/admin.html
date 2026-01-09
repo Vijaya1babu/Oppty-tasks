@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Panel - Break System</title>
+<style>
+body{
+    font-family:Arial;
+    background:#f4f6fb;
+    padding:20px;
+}
+.card{
+    background:#fff;
+    padding:15px;
+    margin-bottom:20px;
+    border-radius:6px;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+th,td{
+    padding:10px;
+    border-bottom:1px solid #ddd;
+    text-align:center;
+}
+th{
+    background:#111;
+    color:#fff;
+}
+.green{color:green;font-weight:bold;}
+.red{color:red;font-weight:bold;}
+.warn{
+    color:red;
+    font-weight:bold;
+}
+.row-warn{
+    background:#ffe5e5;
+}
+button{
+    padding:6px 12px;
+    cursor:pointer;
+}
+.logout{
+    float:right;
+}
+input{
+    padding:6px;
+    margin-right:5px;
+}
+.download{
+    background:#111;
+    color:#fff;
+    border:none;
+}
+</style>
+</head>
+<body>
+
+<h2>
+Admin Dashboard
+<button class="logout" onclick="logout()">Logout</button>
+</h2>
+
+
+<div class="card">
+<h3>Add User</h3>
+<input id="uname" placeholder="Username">
+<input id="upass" placeholder="Password">
+<button onclick="addUser()">Add User</button>
+</div>
+
+<div class="card">
+<h3>Users Status</h3>
+
+<button class="download" onclick="downloadExcel()">Download Excel</button>
+<br><br>
+
+<table>
+<thead>
+<tr>
+<th>User</th>
+<th>Role</th>
+<th>Status</th>
+<th>Break Type</th>
+<th>Start</th>
+<th>End</th>
+<th>Duration</th>
+<th>Today Total</th>
+<th>Alert</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="userTable"></tbody>
+</table>
+</div>
+
+<script>
+if(localStorage.getItem("role") !== "admin"){
+    window.location = "login.html";
+}
+
+function getUsers(){
+    return JSON.parse(localStorage.getItem("users")) || [];
+}
+
+function saveUsers(users){
+    localStorage.setItem("users", JSON.stringify(users));
+}
+
+function format(ts){
+    return ts ? new Date(ts).toLocaleString() : "-";
+}
+
+function isToday(ts){
+    let d = new Date(ts);
+    let t = new Date();
+    return d.toDateString() === t.toDateString();
+}
+
+function renderUsers(){
+    let users = getUsers();
+    let now = Date.now();
+    let html = "";
+
+    users.forEach((u,i)=>{
+        let type="-", start="-", end="-", duration="-", total=0, alert="";
+        let warn = false;
+
+        
+        (u.breaks||[]).forEach(b=>{
+            if(isToday(b.start)) total += b.duration;
+        });
+
+    
+        if(u.activeBreak){
+            type = u.activeBreak.type;
+            start = format(u.activeBreak.start);
+            let mins = Math.floor((now - u.activeBreak.start)/60000);
+            duration = mins + " mins";
+
+            if(mins > 60){
+                warn = true;
+                alert = "⚠ Exceeded 60 mins";
+            }
+        }
+        
+        else if(u.breaks?.length){
+            let b = u.breaks.at(-1);
+            type = b.type;
+            start = format(b.start);
+            end = format(b.end);
+            duration = b.duration + " mins";
+        }
+
+        html += `
+        <tr class="${warn ? 'row-warn' : ''}">
+            <td>${u.username}</td>
+            <td>${u.role || "USER"}</td>
+            <td class="${u.status==="ONLINE" ? "green" : "red"}">${u.status}</td>
+            <td>${type}</td>
+            <td>${start}</td>
+            <td>${end}</td>
+            <td>${duration}</td>
+            <td><b>${total} mins</b></td>
+            <td class="warn">${alert}</td>
+            <td>
+                <button onclick="deleteUser(${i})">Delete</button>
+            </td>
+        </tr>`;
+    });
+
+    userTable.innerHTML = html;
+}
+
+
+setInterval(renderUsers,2000);
+renderUsers();
+
+
+function addUser(){
+    let users = getUsers();
+    const username = uname.value.trim();
+    const password = upass.value.trim();
+
+    if(!username || !password) return;
+
+    if(users.some(u => u.username === username)){
+        alert("User already exists");
+        return;
+    }
+
+    users.push({
+        username,
+        password,
+        role:"USER",
+        status:"ONLINE",
+        activeBreak:null,
+        breaks:[]
+    });
+
+    uname.value = upass.value = "";
+    saveUsers(users);
+    renderUsers();
+}
+
+
+function deleteUser(i){
+    let users = getUsers();
+    users.splice(i,1);
+    saveUsers(users);
+    renderUsers();
+}
+
+
+function downloadExcel(){
+    let users = getUsers();
+    let now = Date.now();
+
+    let csv = "User,Role,Status,Break Type,Start,End,Duration,Today Total,Alert\n";
+
+    users.forEach(u=>{
+        let type="-", start="-", end="-", duration="-", total=0, alert="";
+
+        (u.breaks||[]).forEach(b=>{
+            if(isToday(b.start)) total += b.duration;
+        });
+
+        if(u.activeBreak){
+            type = u.activeBreak.type;
+            start = format(u.activeBreak.start);
+            let mins = Math.floor((now - u.activeBreak.start)/60000);
+            duration = mins + " mins";
+            if(mins > 60) alert = "Exceeded 60 mins";
+        }
+        else if(u.breaks?.length){
+            let b = u.breaks.at(-1);
+            type = b.type;
+            start = format(b.start);
+            end = format(b.end);
+            duration = b.duration + " mins";
+        }
+
+        csv += `"${u.username}","${u.role || 'USER'}","${u.status}","${type}","${start}","${end}","${duration}","${total} mins","${alert}"\n`;
+    });
+
+    let blob = new Blob([csv], { type:"text/csv" });
+    let url = URL.createObjectURL(blob);
+
+    let a = document.createElement("a");
+    a.href = url;
+    a.download = "break_report.csv";
+    a.click();
+
+    URL.revokeObjectURL(url);
+}
+
+function logout(){
+    localStorage.clear();
+    window.location = "login.html";
+}
+</script>
+</body>
+</html>
