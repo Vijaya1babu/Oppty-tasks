@@ -1,66 +1,360 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <title>Admin Panel - Break System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
+/* =========================
+   GLOBAL
+========================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI", Arial, sans-serif;
+}
+
 body{
-    font-family:Arial;
-    background:#f4f6fb;
+    background:#f0f2f7;
+    color:#333;
     padding:20px;
 }
-.card{
-    background:#fff;
-    padding:15px;
-    margin-bottom:20px;
-    border-radius:6px;
+
+/* =========================
+   HEADER
+========================= */
+.oppty-header{
+    background:rgba(255,255,255,0.95);
+    backdrop-filter:blur(12px);
+    height:72px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 32px;
+    border-radius:16px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    margin-bottom:28px;
+    position:relative;
 }
+
+.oppty-header::after{
+    content:"";
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:5px;
+    background:linear-gradient(90deg,#ff7a00,#ffb347);
+    border-radius:0 0 16px 16px;
+}
+
+/* BRAND */
+.oppty-brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.oppty-brand img{
+    height:40px;
+    border-radius:8px;
+}
+
+.oppty-brand-text span:first-child{
+    font-size:20px;
+    font-weight:700;
+    color:#5a4fcf;
+}
+
+.oppty-brand-text span:last-child{
+    font-size:12px;
+    color:#777;
+}
+
+/* USER + LOGOUT */
+.oppty-user{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:linear-gradient(135deg,#e0e2ff,#c8ccff);
+    padding:6px 14px;
+    border-radius:50px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.oppty-user:hover{
+    background:linear-gradient(135deg,#d4d6ff,#bfc3ff);
+    box-shadow:0 6px 20px rgba(0,0,0,0.15);
+}
+
+.oppty-avatar{
+    width:42px;
+    height:42px;
+    background:linear-gradient(135deg,#5a4fcf,#6f63ff);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size:16px;
+    border-radius:50%;
+    flex-shrink:0;
+}
+
+.oppty-user-info{
+    display:flex;
+    flex-direction:column;
+    font-size:12px;
+    line-height:1.1;
+}
+
+.oppty-user-info span:first-child{
+    font-weight:600;
+    color:#5a4fcf;
+}
+
+.oppty-user-info span:last-child{
+    font-size:10px;
+    color:#666;
+}
+
+/* LOGOUT BUTTON */
+.logout-btn{
+    margin-left:10px;
+    padding:6px 16px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(90deg,#ff7a00,#ffb347);
+    color:#fff;
+    font-weight:600;
+    font-size:12px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 4px 12px rgba(255,122,0,0.3);
+}
+
+.logout-btn i{
+    font-size:14px;
+}
+
+.logout-btn:hover{
+    transform:translateY(-2px) scale(1.05);
+    box-shadow:0 6px 20px rgba(255,122,0,0.5);
+}
+
+/* =========================
+   DASHBOARD STATS
+========================= */
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.stat{
+    background:#fff;
+    border-radius:18px;
+    padding:22px;
+    box-shadow:0 12px 25px rgba(0,0,0,0.07);
+    text-align:center;
+    transition:0.3s;
+}
+
+.stat:hover{
+    transform:translateY(-3px);
+    box-shadow:0 16px 30px rgba(0,0,0,0.12);
+}
+
+.stat b{
+    display:block;
+    font-size:26px;
+    margin-top:10px;
+    color:#5a4fcf;
+}
+
+/* =========================
+   CARDS
+========================= */
+.card{
+    background:rgba(255,255,255,0.95);
+    backdrop-filter:blur(8px);
+    border-radius:18px;
+    padding:22px;
+    margin-bottom:28px;
+    box-shadow:0 14px 40px rgba(0,0,0,0.08);
+}
+
+.card h3{
+    font-size:18px;
+    margin-bottom:18px;
+    color:#5a4fcf;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+button{
+    padding:9px 16px;
+    border:none;
+    border-radius:8px;
+    font-size:14px;
+    cursor:pointer;
+    background:linear-gradient(90deg,#5a4fcf,#6f63ff);
+    color:#fff;
+    transition:0.25s;
+}
+
+button:hover{
+    transform:translateY(-1px);
+    box-shadow:0 6px 20px rgba(90,79,207,0.4);
+}
+
+button.download{
+    background:linear-gradient(90deg,#ff7a00,#ff9f43);
+}
+
+/* =========================
+   TABLES
+========================= */
 table{
     width:100%;
-    border-collapse:collapse;
+    border-collapse:separate;
+    border-spacing:0 10px;
 }
-th,td{
-    padding:10px;
-    border-bottom:1px solid #ddd;
-    text-align:center;
+
+thead th{
+    text-align:left;
+    padding:12px;
+    font-size:13px;
+    color:#777;
 }
-th{
-    background:#111;
-    color:#fff;
+
+tbody tr{
+    background:#ffffff;
+    box-shadow:0 6px 18px rgba(0,0,0,0.06);
+    border-radius:12px;
 }
-.green{color:green;font-weight:bold;}
-.red{color:red;font-weight:bold;}
-.warn{
-    color:red;
-    font-weight:bold;
+
+tbody td{
+    padding:14px 12px;
+    font-size:14px;
 }
+
+tbody tr td:first-child{
+    border-radius:12px 0 0 12px;
+}
+tbody tr td:last-child{
+    border-radius:0 12px 12px 0;
+}
+
+/* STATUS */
+.green{ color:#27ae60; font-weight:600; }
+.red{ color:#e74c3c; font-weight:600; }
+
+/* WARNING */
 .row-warn{
-    background:#ffe5e5;
+    background:#fff4f4 !important;
 }
-button{
-    padding:6px 12px;
-    cursor:pointer;
+.warn{
+    color:#e74c3c;
+    font-weight:600;
 }
-.logout{
-    float:right;
-}
+
+/* =========================
+   INPUTS
+========================= */
 input{
-    padding:6px;
-    margin-right:5px;
+    padding:9px 12px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    margin-right:6px;
 }
-.download{
-    background:#111;
-    color:#fff;
-    border:none;
+
+input:focus{
+    outline:none;
+    border-color:#5a4fcf;
+    box-shadow:0 0 0 3px rgba(90,79,207,0.15);
 }
+
+/* =========================
+   FOOTER TEXT
+========================= */
+.footer-note{
+    text-align:center;
+    font-size:12px;
+    color:#777;
+    margin-top:30px;
+}
+/* =========================
+   DOWNLOAD BREAK TABLE BUTTON
+========================= */
+.download-break{
+    background: linear-gradient(135deg, #ff6a00, #ffb347);
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 10px 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 6px 20px rgba(255,106,0,0.35);
+}
+
+.download-break i{
+    font-size: 14px;
+}
+
+.download-break:hover{
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(255,106,0,0.5);
+}
+
 </style>
 </head>
 <body>
 
-<h2>
-Admin Dashboard
-<button class="logout" onclick="logout()">Logout</button>
-</h2>
+<div class="oppty-header">
+    <div class="oppty-brand">
+        <img src="./322343.png" alt="Oppty Logo">
+        <div class="oppty-brand-text">
+            <span>Admin Dashboard</span>
+        </div>
+    </div>
 
+    <div class="oppty-user">
+        <div class="oppty-avatar">A</div>
+        <div class="oppty-user-info">
+            <span>Admin</span>
+            <span>Administrator</span>
+        </div>
+        <button class="logout-btn" onclick="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
+    </div>
+</div>
+<div class="dashboard">
+    <div class="stat">
+        Total Users<br>
+        <b id="totalUsers">0</b>
+    </div>
+    <div class="stat">
+        Users On Break<br>
+        <b id="usersOnBreak">0</b>
+    </div>
+</div>
 
 <div class="card">
 <h3>Add User</h3>
@@ -71,9 +365,7 @@ Admin Dashboard
 
 <div class="card">
 <h3>Users Status</h3>
-
-<button class="download" onclick="downloadExcel()">Download Excel</button>
-<br><br>
+<button class="download" onclick="downloadBreakTableExcel()">Download Break Table</button>
 
 <table>
 <thead>
@@ -87,64 +379,59 @@ Admin Dashboard
 <th>Duration</th>
 <th>Today Total</th>
 <th>Alert</th>
-<th>Action</th>
 </tr>
 </thead>
 <tbody id="userTable"></tbody>
 </table>
 </div>
 
+<div class="card">
+<h3>User Details (Edit & Delete)</h3>
+<button class="download" onclick="downloadUsersExcel()">Download Users details</button>
+<table>
+<thead>
+<tr>
+<th>Username</th>
+<th>Password</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="credTable"></tbody>
+</table>
+</div>
+
 <script>
+
 if(localStorage.getItem("role") !== "admin"){
     window.location = "login.html";
 }
 
-function getUsers(){
-    return JSON.parse(localStorage.getItem("users")) || [];
-}
+function getUsers(){ return JSON.parse(localStorage.getItem("users")) || []; }
+function saveUsers(users){ localStorage.setItem("users", JSON.stringify(users)); }
 
-function saveUsers(users){
-    localStorage.setItem("users", JSON.stringify(users));
-}
-
-function format(ts){
-    return ts ? new Date(ts).toLocaleString() : "-";
-}
-
-function isToday(ts){
-    let d = new Date(ts);
-    let t = new Date();
-    return d.toDateString() === t.toDateString();
-}
+function format(ts){ return ts ? new Date(ts).toLocaleString() : "-"; }
+function isToday(ts){ return new Date(ts).toDateString() === new Date().toDateString(); }
 
 function renderUsers(){
     let users = getUsers();
     let now = Date.now();
     let html = "";
+    let onBreak = 0;
 
     users.forEach((u,i)=>{
         let type="-", start="-", end="-", duration="-", total=0, alert="";
         let warn = false;
 
-        
-        (u.breaks||[]).forEach(b=>{
-            if(isToday(b.start)) total += b.duration;
-        });
+        (u.breaks||[]).forEach(b=>{ if(isToday(b.start)) total += b.duration; });
 
-    
         if(u.activeBreak){
+            onBreak++;
             type = u.activeBreak.type;
             start = format(u.activeBreak.start);
             let mins = Math.floor((now - u.activeBreak.start)/60000);
             duration = mins + " mins";
-
-            if(mins > 60){
-                warn = true;
-                alert = "⚠ Exceeded 60 mins";
-            }
-        }
-        
-        else if(u.breaks?.length){
+            if(mins > 60){ warn = true; alert = "⚠ Exceeded 60 mins"; }
+        } else if(u.breaks?.length){
             let b = u.breaks.at(-1);
             type = b.type;
             start = format(b.start);
@@ -152,8 +439,7 @@ function renderUsers(){
             duration = b.duration + " mins";
         }
 
-        html += `
-        <tr class="${warn ? 'row-warn' : ''}">
+        html += `<tr class="${warn ? 'row-warn' : ''}">
             <td>${u.username}</td>
             <td>${u.role || "USER"}</td>
             <td class="${u.status==="ONLINE" ? "green" : "red"}">${u.status}</td>
@@ -163,76 +449,84 @@ function renderUsers(){
             <td>${duration}</td>
             <td><b>${total} mins</b></td>
             <td class="warn">${alert}</td>
-            <td>
-                <button onclick="deleteUser(${i})">Delete</button>
-            </td>
         </tr>`;
     });
 
     userTable.innerHTML = html;
+    totalUsers.innerText = users.length;
+    usersOnBreak.innerText = onBreak;
+
+    renderCredentials();
 }
 
+function renderCredentials(){
+    let users = getUsers();
+    let html = "";
+    users.forEach((u,i)=>{
+        html += `<tr>
+            <td><input id="u${i}" value="${u.username}"></td>
+            <td><input id="p${i}" value="${u.password}"></td>
+            <td>
+                <button class="save-btn" onclick="saveCred(${i})">Save</button>
+                <button onclick="deleteUser(${i})">Delete</button>
+            </td>
+        </tr>`;
+    });
+    credTable.innerHTML = html;
+}
 
-setInterval(renderUsers,2000);
-renderUsers();
-
+function saveCred(i){
+    let users = getUsers();
+    users[i].username = document.getElementById("u"+i).value.trim();
+    users[i].password = document.getElementById("p"+i).value.trim();
+    saveUsers(users);
+    alert("User details updated");
+    renderUsers();
+}
 
 function addUser(){
     let users = getUsers();
-    const username = uname.value.trim();
-    const password = upass.value.trim();
+    if(!uname.value || !upass.value) return;
+    if(users.some(u => u.username === uname.value)){ alert("User already exists"); return; }
 
-    if(!username || !password) return;
-
-    if(users.some(u => u.username === username)){
-        alert("User already exists");
-        return;
-    }
-
-    users.push({
-        username,
-        password,
-        role:"USER",
-        status:"ONLINE",
-        activeBreak:null,
-        breaks:[]
-    });
-
+    users.push({ username: uname.value.trim(), password: upass.value.trim(), role:"USER", status:"ONLINE", activeBreak:null, breaks:[] });
     uname.value = upass.value = "";
     saveUsers(users);
     renderUsers();
 }
 
+function deleteUser(i){ let users = getUsers(); users.splice(i,1); saveUsers(users); renderUsers(); }
 
-function deleteUser(i){
+function downloadUsersExcel(){
     let users = getUsers();
-    users.splice(i,1);
-    saveUsers(users);
-    renderUsers();
+    let excel = "Username\tPassword\tRole\tStatus\n";
+    users.forEach(u=>{ excel += `${u.username}\t${u.password}\t${u.role}\t${u.status}\n`; });
+    let blob = new Blob([excel], {type:"application/vnd.ms-excel"});
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "user_details.xls";
+    a.click();
 }
-
-
-function downloadExcel(){
+function downloadBreakTableExcel(){
     let users = getUsers();
     let now = Date.now();
+    let excel = "User\tRole\tStatus\tBreak Type\tStart\tEnd\tDuration\tToday Total\tAlert\n";
 
-    let csv = "User,Role,Status,Break Type,Start,End,Duration,Today Total,Alert\n";
-
-    users.forEach(u=>{
-        let type="-", start="-", end="-", duration="-", total=0, alert="";
-
-        (u.breaks||[]).forEach(b=>{
-            if(isToday(b.start)) total += b.duration;
+    users.forEach(u => {
+        let totalToday = 0;
+        (u.breaks||[]).forEach(b => {
+            if(isToday(b.start)) totalToday += b.duration;
         });
 
+    
+        let type="-", start="-", end="-", duration="-", alert="";
         if(u.activeBreak){
             type = u.activeBreak.type;
             start = format(u.activeBreak.start);
             let mins = Math.floor((now - u.activeBreak.start)/60000);
             duration = mins + " mins";
-            if(mins > 60) alert = "Exceeded 60 mins";
-        }
-        else if(u.breaks?.length){
+            if(mins > 60) alert = "⚠ Exceeded 60 mins";
+        } else if(u.breaks?.length){
             let b = u.breaks.at(-1);
             type = b.type;
             start = format(b.start);
@@ -240,24 +534,22 @@ function downloadExcel(){
             duration = b.duration + " mins";
         }
 
-        csv += `"${u.username}","${u.role || 'USER'}","${u.status}","${type}","${start}","${end}","${duration}","${total} mins","${alert}"\n`;
+        excel += `${u.username}\t${u.role || "USER"}\t${u.status}\t${type}\t${start}\t${end}\t${duration}\t${totalToday} mins\t${alert}\n`;
     });
 
-    let blob = new Blob([csv], { type:"text/csv" });
-    let url = URL.createObjectURL(blob);
-
+    let blob = new Blob([excel], {type:"application/vnd.ms-excel"});
     let a = document.createElement("a");
-    a.href = url;
-    a.download = "break_report.csv";
+    a.href = URL.createObjectURL(blob);
+    a.download = "users_break_table.xls";
     a.click();
-
-    URL.revokeObjectURL(url);
 }
+ 
+ 
+function logout(){ localStorage.clear(); alert("Logged out!"); window.location="login.html" } 
+ 
+setInterval(renderUsers,2000); 
+renderUsers(); 
+</script> 
 
-function logout(){
-    localStorage.clear();
-    window.location = "login.html";
-}
-</script>
-</body>
+</body> 
 </html>

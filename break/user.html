@@ -1,74 +1,296 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <title>User Dashboard - Break System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
+/* =========================
+   GLOBAL
+========================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI", Arial, sans-serif;
+}
+
 body{
-    font-family:Arial;
-    background:#eef1f7;
+    background:#f0f2f7;
+    color:#333;
     padding:20px;
 }
-.card{
-    background:#fff;
-    padding:15px;
-    margin-bottom:20px;
-    border-radius:6px;
+
+/* =========================
+   HEADER - Oppty Theme
+========================= */
+.user-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(255,255,255,0.95);
+    backdrop-filter:blur(12px);
+    height:72px;
+    padding:0 32px;
+    border-radius:16px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    margin-bottom:28px;
+    position:relative;
 }
-.green{color:green;font-weight:bold;}
-.red{color:red;font-weight:bold;}
-.alert{
-    color:red;
-    font-weight:bold;
+
+.user-header::after{
+    content:"";
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:5px;
+    background:linear-gradient(90deg,#ff7a00,#ffb347);
+    border-radius:0 0 16px 16px;
 }
-button{
-    padding:8px 12px;
+
+.user-brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.user-brand img{
+    height:40px;
+    border-radius:8px;
+}
+
+.user-brand-text span{
+    font-size:20px;
+    font-weight:700;
+    color:#5a4fcf;
+}
+
+.user-info{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.user-avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#5a4fcf,#6f63ff);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size:16px;
+}
+
+.user-welcome{
+    display:flex;
+    flex-direction:column;
+    font-size:12px;
+}
+
+.user-welcome span:first-child{
+    font-weight:600;
+    color:#5a4fcf;
+}
+
+.logout-btn{
+    margin-left:10px;
+    padding:6px 16px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(90deg,#ff7a00,#ffb347);
+    color:#fff;
+    font-weight:600;
+    font-size:12px;
+    display:flex;
+    align-items:center;
+    gap:6px;
     cursor:pointer;
+    transition:0.3s;
 }
-select{
-    padding:6px;
+
+.logout-btn:hover{
+    transform:translateY(-2px) scale(1.05);
+    box-shadow:0 6px 20px rgba(255,122,0,0.5);
 }
+
+/* =========================
+   DASHBOARD STATS
+========================= */
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.stat{
+    background:#fff;
+    border-radius:18px;
+    padding:22px;
+    box-shadow:0 12px 25px rgba(0,0,0,0.07);
+    text-align:center;
+    transition:0.3s;
+}
+
+.stat:hover{
+    transform:translateY(-3px);
+    box-shadow:0 16px 30px rgba(0,0,0,0.12);
+}
+
+.stat b{
+    display:block;
+    font-size:26px;
+    margin-top:10px;
+    color:#5a4fcf;
+}
+
+/* =========================
+   CARDS
+========================= */
+.card{
+    background:rgba(255,255,255,0.95);
+    backdrop-filter:blur(8px);
+    border-radius:18px;
+    padding:22px;
+    margin-bottom:28px;
+    box-shadow:0 14px 40px rgba(0,0,0,0.08);
+}
+
+.card h3{
+    font-size:18px;
+    margin-bottom:18px;
+    color:#5a4fcf;
+}
+
+/* =========================
+   ALERT MESSAGES
+========================= */
+.alert-message{
+    margin-top:10px;
+    padding:10px 14px;
+    border-radius:8px;
+    font-weight:600;
+    display:inline-block;
+}
+
+.alert-start{ background:#e0f7e9; color:#27ae60; }
+.alert-end{ background:#fff4e6; color:#e67e22; }
+
+/* =========================
+   TABLES
+========================= */
 table{
     width:100%;
-    border-collapse:collapse;
+    border-collapse:separate;
+    border-spacing:0 10px;
 }
-th,td{
-    padding:8px;
-    border-bottom:1px solid #ddd;
+
+thead th{
     text-align:left;
+    padding:12px;
+    font-size:13px;
+    color:#777;
+    background:#f0f0f0;
 }
-th{
-    background:#111;
+
+tbody tr{
+    background:#ffffff;
+    box-shadow:0 6px 18px rgba(0,0,0,0.06);
+    border-radius:12px;
+}
+
+tbody td{
+    padding:14px 12px;
+    font-size:14px;
+}
+
+tbody tr td:first-child{ border-radius:12px 0 0 12px; }
+tbody tr td:last-child{ border-radius:0 12px 12px 0; }
+
+.green{ color:#27ae60; font-weight:600; }
+.red{ color:#e74c3c; font-weight:600; }
+
+/* =========================
+   BUTTONS
+========================= */
+button{
+    padding:9px 16px;
+    border:none;
+    border-radius:8px;
+    font-size:14px;
+    cursor:pointer;
+    background:linear-gradient(90deg,#5a4fcf,#6f63ff);
     color:#fff;
+    transition:0.25s;
+}
+
+button:hover{
+    transform:translateY(-1px);
+    box-shadow:0 6px 20px rgba(90,79,207,0.4);
+}
+
+select{
+    padding:9px 12px;
+    border-radius:6px;
+    border:1px solid #ccc;
 }
 </style>
 </head>
 <body>
 
-<h2>User Dashboard</h2>
-
-
-<div class="card">
-<h3>Employees Overview</h3>
-<p id="stats"></p>
+<!-- HEADER -->
+<div class="user-header">
+    <div class="user-brand">
+        <img src="./322343.png" alt="Oppty Logo">
+        <div class="user-brand-text">
+            <span>User Dashboard</span>
+        </div>
+    </div>
+    <div class="user-info">
+        <div class="user-avatar" id="userAvatar">U</div>
+        <div class="user-welcome">Welcome back, <span id="userName">User</span></div>
+        <button class="logout-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+    </div>
 </div>
 
+<!-- DASHBOARD STATS -->
+<div class="dashboard">
+    <div class="stat">
+        Total Users<br>
+        <b id="totalUsers">0</b>
+    </div>
+    <div class="stat">
+        Users On Break<br>
+        <b id="usersOnBreak">0</b>
+    </div>
+</div>
 
+<!-- USERS STATUS -->
 <div class="card">
 <h3>Users Status</h3>
 <table>
 <thead>
 <tr>
 <th>Username</th>
+<th>Role</th>
 <th>Status</th>
 </tr>
 </thead>
-<tbody id="usersStatus"></tbody>
+<tbody id="userTable"></tbody>
 </table>
 </div>
 
-
+<!-- BREAK MANAGEMENT -->
 <div class="card">
-<h3>Break Management</h3>
+<h3>Start / End Break</h3>
 <select id="breakType">
 <option value="Regular">Regular</option>
 <option value="Lunch">Lunch</option>
@@ -79,140 +301,76 @@ th{
 <button onclick="startBreak()">Start Break</button>
 <button onclick="endBreak()">End Break</button>
 
-<p id="breakStatus"></p>
-<p id="dailyTotal"></p>
+<div id="alertMsg"></div>
 </div>
 
 <script>
+// Login check
 if(localStorage.getItem("role") !== "user"){
     window.location = "login.html";
 }
 
 let currentUser = localStorage.getItem("currentUser");
+document.getElementById("userName").innerText = currentUser;
+document.getElementById("userAvatar").innerText = currentUser[0].toUpperCase();
 
-function getUsers(){
-    return JSON.parse(localStorage.getItem("users")) || [];
-}
+// LocalStorage helpers
+function getUsers(){ return JSON.parse(localStorage.getItem("users")) || []; }
+function saveUsers(users){ localStorage.setItem("users", JSON.stringify(users)); }
 
-function saveUsers(users){
-    localStorage.setItem("users", JSON.stringify(users));
-}
-
-function isToday(ts){
-    let d = new Date(ts);
-    let t = new Date();
-    return d.toDateString() === t.toDateString();
-}
-
-function updateUI(){
-    let users = getUsers();
-    let online = 0, away = 0;
-
-    users.forEach(u=>{
-        u.status === "ONLINE" ? online++ : away++;
-    });
-
-    stats.innerHTML = `Online: <b>${online}</b> | On Break: <b>${away}</b>`;
-
-    renderUsersStatus();
-
-    let me = users.find(u => u.username === currentUser);
-    if(!me) return;
-
-    
-    let total = 0;
-    (me.breaks || []).forEach(b=>{
-        if(isToday(b.start)) total += b.duration;
-    });
-
-    dailyTotal.innerHTML = `<b>Today's Total Break:</b> ${total} mins`;
-
-    if(me.activeBreak){
-        let mins = Math.floor((Date.now() - me.activeBreak.start)/60000);
-
-        breakStatus.innerHTML = `
-        <span class="red">
-            On ${me.activeBreak.type} break<br>
-            Duration: ${mins} mins
-        </span>`;
-
-        if(mins > 60){
-            breakStatus.innerHTML += `
-            <div class="alert">⚠ Break exceeded 60 minutes!</div>`;
-        }
-    }else{
-        breakStatus.innerHTML = `<span class="green">You are Working</span>`;
-    }
-}
-
-
-function renderUsersStatus(){
+// Render simplified table
+function renderUsers(){
     let users = getUsers();
     let html = "";
+    let onBreak = 0;
 
     users.forEach(u=>{
-        html += `
-        <tr>
+        if(u.status === "AWAY") onBreak++;
+        html += `<tr>
             <td>${u.username}</td>
-            <td class="${u.status === "ONLINE" ? "green" : "red"}">
-                ${u.status === "ONLINE" ? "ONLINE" : "ON BREAK"}
-            </td>
+            <td>${u.role || "USER"}</td>
+            <td class="${u.status==="ONLINE"?"green":"red"}">${u.status}</td>
         </tr>`;
     });
 
-    usersStatus.innerHTML = html;
+    document.getElementById("userTable").innerHTML = html;
+    document.getElementById("totalUsers").innerText = users.length;
+    document.getElementById("usersOnBreak").innerText = onBreak;
 }
 
+// Break logic
 function startBreak(){
     let users = getUsers();
-    let me = users.find(u => u.username === currentUser);
-
-    if(me.activeBreak){
-        alert("Break already active");
-        return;
-    }
-
-    me.status = "AWAY";
-    me.activeBreak = {
-        type: breakType.value,
-        start: Date.now()
-    };
-
+    let me = users.find(u => u.username===currentUser);
+    if(me.activeBreak){ alert("Break already active"); return; }
+    me.status="AWAY";
+    me.activeBreak={ type: breakType.value, start: Date.now() };
     saveUsers(users);
-    updateUI();
+    renderUsers();
+    document.getElementById("alertMsg").innerHTML = `<div class="alert-message alert-start">✅ ${breakType.value} break started!</div>`;
+    setTimeout(()=>{ document.getElementById("alertMsg").innerHTML=""; }, 5000);
 }
 
 function endBreak(){
     let users = getUsers();
-    let me = users.find(u => u.username === currentUser);
-
-    if(!me.activeBreak){
-        alert("No active break");
-        return;
-    }
-
-    let end = Date.now();
-    let start = me.activeBreak.start;
-    let duration = Math.floor((end - start)/60000);
-
-    me.breaks = me.breaks || [];
-    me.breaks.push({
-        type: me.activeBreak.type,
-        start,
-        end,
-        duration
-    });
-
-    me.activeBreak = null;
-    me.status = "ONLINE";
-
+    let me = users.find(u => u.username===currentUser);
+    if(!me.activeBreak){ alert("No active break"); return; }
+    let end=Date.now(), start=me.activeBreak.start;
+    let duration=Math.floor((end-start)/60000);
+    me.breaks=me.breaks||[];
+    me.breaks.push({ type: me.activeBreak.type, start, end, duration });
+    me.activeBreak=null;
+    me.status="ONLINE";
     saveUsers(users);
-    updateUI();
+    renderUsers();
+    document.getElementById("alertMsg").innerHTML = `<div class="alert-message alert-end">⏹ ${breakType.value} break ended!</div>`;
+    setTimeout(()=>{ document.getElementById("alertMsg").innerHTML=""; }, 5000);
 }
 
-setInterval(updateUI,2000);
-updateUI();
-</script>
+function logout(){ localStorage.clear(); window.location="login.html"; }
 
+setInterval(renderUsers,2000);
+renderUsers();
+</script>
 </body>
 </html>
