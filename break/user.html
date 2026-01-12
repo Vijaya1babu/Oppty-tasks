@@ -4,14 +4,10 @@
 <meta charset="UTF-8">
 <title>User Dashboard - Break System</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-/* =========================
-   GLOBAL
-========================= */
+
 *{
     margin:0;
     padding:0;
@@ -25,9 +21,7 @@ body{
     padding:20px;
 }
 
-/* =========================
-   HEADER - Oppty Theme
-========================= */
+
 .user-header{
     display:flex;
     justify-content:space-between;
@@ -121,9 +115,6 @@ body{
     box-shadow:0 6px 20px rgba(255,122,0,0.5);
 }
 
-/* =========================
-   DASHBOARD STATS
-========================= */
 .dashboard{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -152,9 +143,7 @@ body{
     color:#5a4fcf;
 }
 
-/* =========================
-   CARDS
-========================= */
+
 .card{
     background:rgba(255,255,255,0.95);
     backdrop-filter:blur(8px);
@@ -170,9 +159,7 @@ body{
     color:#5a4fcf;
 }
 
-/* =========================
-   ALERT MESSAGES
-========================= */
+
 .alert-message{
     margin-top:10px;
     padding:10px 14px;
@@ -183,10 +170,9 @@ body{
 
 .alert-start{ background:#e0f7e9; color:#27ae60; }
 .alert-end{ background:#fff4e6; color:#e67e22; }
+.alert-warning{ background:#fff0f0; color:#e74c3c; }
 
-/* =========================
-   TABLES
-========================= */
+
 table{
     width:100%;
     border-collapse:separate;
@@ -218,9 +204,7 @@ tbody tr td:last-child{ border-radius:0 12px 12px 0; }
 .green{ color:#27ae60; font-weight:600; }
 .red{ color:#e74c3c; font-weight:600; }
 
-/* =========================
-   BUTTONS
-========================= */
+
 button{
     padding:9px 16px;
     border:none;
@@ -242,11 +226,18 @@ select{
     border-radius:6px;
     border:1px solid #ccc;
 }
+
+#searchInput{
+    padding:7px 10px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    width:200px;
+    margin-bottom:10px;
+}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="user-header">
     <div class="user-brand">
         <img src="./322343.png" alt="Oppty Logo">
@@ -261,7 +252,7 @@ select{
     </div>
 </div>
 
-<!-- DASHBOARD STATS -->
+
 <div class="dashboard">
     <div class="stat">
         Total Users<br>
@@ -273,9 +264,10 @@ select{
     </div>
 </div>
 
-<!-- USERS STATUS -->
+
 <div class="card">
 <h3>Users Status</h3>
+<input type="text" id="searchInput" placeholder="Search users..." onkeyup="renderUsers()">
 <table>
 <thead>
 <tr>
@@ -288,7 +280,7 @@ select{
 </table>
 </div>
 
-<!-- BREAK MANAGEMENT -->
+
 <div class="card">
 <h3>Start / End Break</h3>
 <select id="breakType">
@@ -302,30 +294,37 @@ select{
 <button onclick="endBreak()">End Break</button>
 
 <div id="alertMsg"></div>
+<br>
+<div id="totalBreakDuration" class="alert-message" style="display:none;"></div>
+<div id="currentBreakTimer" class="alert-message" style="display:none;"></div>
 </div>
 
 <script>
-// Login check
+
 if(localStorage.getItem("role") !== "user"){
     window.location = "login.html";
 }
 
-let currentUser = localStorage.getItem("currentUser");
-document.getElementById("userName").innerText = currentUser;
-document.getElementById("userAvatar").innerText = currentUser[0].toUpperCase();
 
-// LocalStorage helpers
+let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+document.getElementById("userName").innerText = currentUser.username;
+document.getElementById("userAvatar").innerText = currentUser.username[0].toUpperCase();
+
 function getUsers(){ return JSON.parse(localStorage.getItem("users")) || []; }
 function saveUsers(users){ localStorage.setItem("users", JSON.stringify(users)); }
 
-// Render simplified table
+let currentBreakInterval = null;
+
+
 function renderUsers(){
     let users = getUsers();
     let html = "";
     let onBreak = 0;
+    let searchQuery = document.getElementById("searchInput").value.toLowerCase();
 
     users.forEach(u=>{
         if(u.status === "AWAY") onBreak++;
+        if(searchQuery && !u.username.toLowerCase().includes(searchQuery)) return;
         html += `<tr>
             <td>${u.username}</td>
             <td>${u.role || "USER"}</td>
@@ -336,12 +335,67 @@ function renderUsers(){
     document.getElementById("userTable").innerHTML = html;
     document.getElementById("totalUsers").innerText = users.length;
     document.getElementById("usersOnBreak").innerText = onBreak;
+
+
+    let me = users.find(u => u.username === currentUser.username);
+    let totalMs = 0;
+    if(me.breaks){
+        me.breaks.forEach(b=>{
+            totalMs += (new Date(b.end).getTime() - new Date(b.start).getTime());
+        });
+    }
+
+    
+    if(me.activeBreak){
+        document.getElementById("currentBreakTimer").style.display="inline-block";
+        if(currentBreakInterval) clearInterval(currentBreakInterval);
+        currentBreakInterval = setInterval(()=>{
+            let now = Date.now();
+            let currentDurationMs = now - me.activeBreak.start;
+            let mins = Math.floor(currentDurationMs/60000);
+            let secs = Math.floor((currentDurationMs%60000)/1000);
+            document.getElementById("currentBreakTimer").innerText = `⏱ Current Break: ${me.activeBreak.type} - ${mins} min ${secs} sec`;
+
+            
+            let totalCurrentMs = totalMs + currentDurationMs;
+            let totalMins = Math.floor(totalCurrentMs/60000);
+            let totalSecs = Math.floor((totalCurrentMs%60000)/1000);
+            let totalStr = `${totalMins} min ${totalSecs} sec`;
+            let totalBreakDiv = document.getElementById("totalBreakDuration");
+            totalBreakDiv.style.display="block";
+            totalBreakDiv.innerHTML=`Total Break Today: ${totalStr}`;
+            if(totalMins > 60){
+                totalBreakDiv.className="alert-message alert-warning";
+                totalBreakDiv.innerHTML=`⚠ You have exceeded 60 minutes! Total Break: ${totalStr}`;
+            } else {
+                totalBreakDiv.className="alert-message";
+            }
+
+        },1000);
+        totalMs += (Date.now() - me.activeBreak.start);
+    } else {
+        document.getElementById("currentBreakTimer").style.display="none";
+        if(currentBreakInterval) clearInterval(currentBreakInterval);
+
+        let totalMins = Math.floor(totalMs/60000);
+        let totalSecs = Math.floor((totalMs%60000)/1000);
+        let totalStr = `${totalMins} min ${totalSecs} sec`;
+        let totalBreakDiv = document.getElementById("totalBreakDuration");
+        totalBreakDiv.style.display="block";
+        totalBreakDiv.innerHTML=`Total Break Today: ${totalStr}`;
+        if(totalMins > 60){
+            totalBreakDiv.className="alert-message alert-warning";
+            totalBreakDiv.innerHTML=`⚠ You have exceeded 60 minutes! Total Break: ${totalStr}`;
+        } else {
+            totalBreakDiv.className="alert-message";
+        }
+    }
 }
 
-// Break logic
+
 function startBreak(){
     let users = getUsers();
-    let me = users.find(u => u.username===currentUser);
+    let me = users.find(u => u.username === currentUser.username);
     if(me.activeBreak){ alert("Break already active"); return; }
     me.status="AWAY";
     me.activeBreak={ type: breakType.value, start: Date.now() };
@@ -353,7 +407,7 @@ function startBreak(){
 
 function endBreak(){
     let users = getUsers();
-    let me = users.find(u => u.username===currentUser);
+    let me = users.find(u => u.username === currentUser.username);
     if(!me.activeBreak){ alert("No active break"); return; }
     let end=Date.now(), start=me.activeBreak.start;
     let duration=Math.floor((end-start)/60000);
