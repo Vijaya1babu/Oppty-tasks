@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart DOM Calculator</title>
+    <style>
+     
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #2c3e50;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #calculator-app {
+            width: 320px;
+            background: #171717;
+            padding: 25px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        #screen {
+            color: #fff;
+            font-size: 3rem;
+            text-align: right;
+            margin-bottom: 20px;
+            min-height: 70px;
+            word-wrap: break-word;
+            padding: 0 10px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .btn {
+            height: 65px;
+            border: none;
+            border-radius: 20px;
+            background: #333;
+            color: white;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover 
+        { background:
+         #444; 
+        }
+        .btn:active 
+        { transform: scale(0.92);
+         }
+
+     
+        .operator 
+        { background: #ff9f0a; 
+        font-weight: bold;
+     }
+        .operator:hover 
+        { background: #ffb340;
+         }
+
+        .control {
+         background: #a5a5a5;
+         color: black; 
+        }
+        .control:hover 
+        { background: #d2d2d2;
+         }
+
+    </style>
+</head>
+<body>
+
+    <div id="calculator-app"></div>
+
+    <script>
+
+        const app = document.getElementById('calculator-app');
+        const screen = document.createElement('div');
+        screen.id = 'screen';
+        screen.textContent = '0';
+        app.appendChild(screen);
+        const grid = document.createElement('div');
+        grid.className = 'button-grid';
+        app.appendChild(grid);
+
+        const labels = [
+            'C', 'DEL', '%', '/',
+            '7', '8', '9', '*',
+            '4', '5', '6', '-',
+            '1', '2', '3', '+',
+            '0', '.', '='
+        ];
+
+        let expression = "";
+
+        
+        labels.forEach(text => {
+            const btn = document.createElement('button');
+            btn.textContent = text;
+            btn.className = 'btn';
+
+            if (['/', '*', '-', '+', '='].includes(text)) btn.classList.add('operator');
+            if (text === 'C' || text === 'DEL') btn.classList.add('control');
+            if (text === '0') btn.style.gridColumn = 'span 2';
+
+           
+            btn.onclick = () => handleInput(text);
+
+            grid.appendChild(btn);
+        });
+
+   
+        function handleInput(value) {
+            if (value === 'C') {
+                expression = "";
+            } 
+            else if (value === 'DEL') {
+                expression = expression.slice(0, -1);
+            } 
+            else if (value === '=') {
+                try {
+                    if (expression === "") return;
+                    
+                    expression = String(new Function(`return ${expression}`)());
+                    if (expression === "Infinity" || expression === "NaN") {
+                        expression = "Error";
+                    }
+                } catch {
+                    expression = "Error";
+                }
+            } 
+            else {
+              
+                const lastChar = expression.slice(-1);
+                const ops = ['+', '-', '*', '/', '%', '.'];
+
+                if (expression === "" && ['+', '*', '/', '%'].includes(value)) return;
+
+                if (ops.includes(value) && ops.includes(lastChar)) return;
+
+                expression += value;
+            }
+            screen.textContent = expression || '0';
+        }
+
+        
+     
+    </script>
+</body>
+</html>
