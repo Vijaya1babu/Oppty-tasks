@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Quiz Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        :root {
+            --glass: rgba(255, 255, 255, 0.2);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --primary: #6366f1;
+            --accent: #f43f5e;
+            --text: #1e293b;
+            --success: #22c55e;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text);
+        }
+
+        #quiz-app {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            width: 90%;
+            max-width: 450px;
+            position: relative;
+        }
+
+        /* Glassmorphism User Badge */
+        .user-badge {
+            background: rgba(99, 102, 241, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            padding: 8px 16px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .progress-bar-bg {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        #progress-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        #timer-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary) 0%, #e2e8f0 0%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: inset 0 0 0 4px white;
+        }
+
+        h2 { font-size: 1.4rem; margin: 0 0 1.5rem 0; }
+
+        .options-grid { display: grid; gap: 12px; }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #e2e8f0;
+            padding: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            background: #f8fafc;
+        }
+
+        .option-btn.correct { background: #dcfce7; border-color: var(--success); color: #166534; }
+        .option-btn.wrong { background: #fee2e2; border-color: var(--accent); color: #991b1b; }
+
+        #next-btn {
+            margin-top: 1.5rem;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 12px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            display: none;
+        }
+
+        .hidden { display: none !important; }
+        
+        #result-screen { text-align: center; }
+        .score-circle { font-size: 3rem; color: var(--primary); font-weight: 800; margin: 10px 0;}
+        .accuracy-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #e0e7ff;
+            color: var(--primary);
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        /* Login Styles */
+        .login-view-container { text-align: center; }
+        .login-form { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+        .login-input {
+            padding: 14px;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .login-input:focus { border-color: var(--primary); }
+        .login-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+<div id="quiz-app">
+    <div id="login-view" class="login-view-container">
+        <i class="fa-solid fa-circle-user" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+        <h2>Quiz Login</h2>
+        <div class="login-form">
+            <input type="text" id="username-input" class="login-input" placeholder="Your Name">
+            <input type="text" id="passport-input" class="login-input" placeholder="Phone Number (Phone number )">
+            <button class="login-btn" onclick="handleLogin()">Start Quiz</button>
+            <p id="login-error" style="color: var(--accent); font-weight: 500; font-size: 0.9rem;" class="hidden">Access Denied: Invalid Phone Number</p>
+        </div>
+    </div>
+
+    <div id="quiz-content" class="hidden">
+        <div id="user-display-layer" class="user-badge">
+            <i class="fa-solid fa-user-astronaut"></i>
+            <span id="player-name">Player</span>
+        </div>
+
+        <div class="progress-bar-bg">
+            <div id="progress-fill"></div>
+        </div>
+
+        <div id="quiz-view">
+            <div class="header">
+                <span id="question-number" style="font-weight: 600; color: #64748b;">Question 1/4</span>
+                <div id="timer-circle">10</div>
+            </div>
+
+            <h2 id="question-text">Loading question...</h2>
+
+            <div id="options" class="options-grid"></div>
+
+            <button id="next-btn">Continue →</button>
+        </div>
+
+        <div id="result-screen" class="hidden">
+            <div id="result-emoji" style="font-size: 4rem;">🎉</div>
+            <h2>Quiz Complete!</h2>
+            <div class="score-circle" id="final-score">0</div>
+            <div class="accuracy-badge" id="accuracy-text">Accuracy: 0%</div>
+            <p id="feedback-msg" style="color: #64748b; margin-bottom: 1.5rem;"></p>
+            <button class="option-btn" style="width: 100%; text-align: center; background: var(--primary); color: white; border: none;" onclick="location.reload()">Try Again</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const AUTHORIZED_PHONES = ["1234567890", "9876543210", "1122334455"];
+const quizData = [
+        { q: "Which property is used to change the background color?", a: ["color", "bgcolor", "background-color", "bg-style"], c: 2 },
+        { q: "How do you write 'Hello World' in an alert box?", a: ["msg('Hello')", "alert('Hello World')", "p:Hello", "console.log('Hello')"], c: 1 },
+        { q: "Inside which HTML element do we put the JavaScript?", a: ["<scripting>", "<js>", "<script>", "<javascript>"], c: 2 },
+        { q: "What is the correct HTML for adding a background color?", a: ["<body bg='yellow'>", "<body style='background-color:yellow;'>", "<background>yellow</background>", "<body color='yellow'>"], c: 1 },
+        { q: "How do you create a function in JavaScript?", a: ["function myFunction()", "function:myFunction()", "def myFunction()", "func myFunction()"], c: 0 },
+        { q: "How to write an IF statement in JavaScript?", a: ["if i = 5", "if (i == 5)", "if i == 5 then", "if i == 5 { }"], c: 1 },
+        { q: "Which event occurs when the user clicks on an HTML element?", a: ["onmouseclick", "onchange", "onclick", "onhover"], c: 2 },
+        { q: "How do you declare a JavaScript variable?", a: ["v carName", "variable carName", "let carName", "var:carName"], c: 2 },
+        { q: "Which operator is used to assign a value to a variable?", a: ["*", "=", "-", "x"], c: 1 },
+        { q: "What does HTML stand for?", a: ["Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks Markup Language", "Hyper Tech Main Link"], c: 0 },
+        { q: "Which CSS property controls the text size?", a: ["font-style", "text-size", "font-size", "text-style"], c: 2 },
+        { q: "How do you make the text bold in CSS?", a: ["font-weight:bold;", "style:bold;", "font:bold", "text-decoration:bold"], c: 0 },
+        { q: "How do you select an element with id 'demo'?", a: [".demo", "#demo", "*demo", "id:demo"], c: 1 },
+        { q: "What is the default value of the position property?", a: ["relative", "fixed", "static", "absolute"], c: 2 },
+        { q: "Which HTML attribute is used to define inline styles?", a: ["class", "styles", "style", "font"], c: 2 }
+    ];
+   
+
+    let currentIdx = 0;
+    let score = 0;
+    let timeLeft = 10;
+    let timerInterval;
+    let shuffledQuestions = [];
+    let currentUser = "";
+
+    const progressFill = document.getElementById('progress-fill');
+    const timerCircle = document.getElementById('timer-circle');
+    const questionNum = document.getElementById('question-number');
+    const questionText = document.getElementById('question-text');
+    const optionsGrid = document.getElementById('options');
+    const nextBtn = document.getElementById('next-btn');
+
+    function handleLogin() {
+        const name = document.getElementById('username-input').value.trim();
+        const phone = document.getElementById('passport-input').value.trim();
+        const errorMsg = document.getElementById('login-error');
+
+        if (name !== "" && AUTHORIZED_PHONES.includes(phone)) {
+            currentUser = name;
+            document.getElementById('player-name').innerText = currentUser;
+            document.getElementById('login-view').classList.add('hidden');
+            document.getElementById('quiz-content').classList.remove('hidden');
+            initQuiz();
+        } else {
+            errorMsg.classList.remove('hidden');
+        }
+    }
+
+    function initQuiz() {
+        shuffledQuestions = [...quizData].sort(() => Math.random() - 0.5);
+        loadQuestion();
+    }
+
+    function startTimer() {
+        timeLeft = 10;
+        updateTimerUI();
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            updateTimerUI();
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                autoFail();
+            }
+        }, 1000);
+    }
+
+    function updateTimerUI() {
+        timerCircle.innerText = timeLeft;
+        const percentage = (timeLeft / 10) * 100;
+        timerCircle.style.background = `conic-gradient(var(--primary) ${percentage}%, #e2e8f0 0%)`;
+    }
+
+    function loadQuestion() {
+        const data = shuffledQuestions[currentIdx];
+        const progress = (currentIdx / shuffledQuestions.length) * 100;
+        progressFill.style.width = `${progress}%`;
+        questionNum.innerText = `Question ${currentIdx + 1}/${shuffledQuestions.length}`;
+        questionText.innerText = data.q;
+        optionsGrid.innerHTML = "";
+        nextBtn.style.display = "none";
+
+        data.a.forEach((opt, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => selectAnswer(i);
+            optionsGrid.appendChild(btn);
+        });
+        startTimer();
+    }
+
+    function selectAnswer(index) {
+        clearInterval(timerInterval);
+        const data = shuffledQuestions[currentIdx];
+        const buttons = optionsGrid.children;
+
+        if (index === data.c) {
+            score++;
+            buttons[index].classList.add('correct');
+        } else {
+            buttons[index].classList.add('wrong');
+            buttons[data.c].classList.add('correct');
+        }
+
+        Array.from(buttons).forEach(b => b.disabled = true);
+        nextBtn.style.display = "block";
+    }
+
+    function autoFail() {
+        const data = shuffledQuestions[currentIdx];
+        if(optionsGrid.children[data.c]) {
+            optionsGrid.children[data.c].classList.add('correct');
+        }
+        Array.from(optionsGrid.children).forEach(b => b.disabled = true);
+        nextBtn.style.display = "block";
+    }
+
+    nextBtn.onclick = () => {
+        currentIdx++;
+        if (currentIdx < shuffledQuestions.length) {
+            loadQuestion();
+        } else {
+            showResults();
+        }
+    };
+
+    function showResults() {
+        progressFill.style.width = "100%";
+        document.getElementById('quiz-view').classList.add('hidden');
+        document.getElementById('user-display-layer').classList.add('hidden');
+        document.getElementById('result-screen').classList.remove('hidden');
+        
+        const accuracy = Math.round((score / shuffledQuestions.length) * 100);
+        document.getElementById('final-score').innerText = `${score}/${shuffledQuestions.length}`;
+        document.getElementById('accuracy-text').innerText = `Accuracy: ${accuracy}%`;
+        
+    const feedback = document.getElementById('feedback-msg');
+    const emoji = document.getElementById('result-emoji'); 
+
+    if (accuracy === 100) {
+        feedback.innerText = "Absolute Perfection! You're a pro.";
+        emoji.innerHTML = '<i class="fa-solid fa-trophy" style="color: #fbbf24"></i>';
+    } else if (accuracy >= 75) {
+        feedback.innerText = "Great job! You really know your stuff.";
+        emoji.innerHTML = '<i class="fa-solid fa-medal" style="color: #94a3b8"></i>';
+    } else if (accuracy >= 50) {
+        feedback.innerText = "Not bad, but there's room for improvement.";
+        emoji.innerHTML = '<i class="fa-solid fa-award" style="color: #cd7f32"></i>';
+    } else {
+        feedback.innerText = "Keep practicing! You'll get there.";
+        emoji.innerHTML = '<i class="fa-solid fa-book-open"></i>';
+    }
+    }
+</script>
+</body>
+</html>
