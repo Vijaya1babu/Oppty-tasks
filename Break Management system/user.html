@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>User Dashboard - Break System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="user.css">
+</head>
+
+<body>
+
+<div class="user-header">
+    <div class="user-brand">
+        <img src="./322343.png" alt="Oppty Logo">
+        <div class="user-brand-text">
+            <span>User Dashboard</span>
+        </div>
+    </div>
+    <div class="user-info">
+        <div class="user-avatar" id="userAvatar">U</div>
+        <div class="user-welcome">Welcome back, <span id="userName">User</span></div>
+        <button class="logout-btn" onclick="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
+    </div>
+</div>
+
+<div class="dashboard">
+    <div class="stat">
+        Total Users<br>
+        <b id="totalUsers">0</b>
+    </div>
+    <div class="stat">
+        Users On Break<br>
+        <b id="usersOnBreak">0</b>
+    </div>
+    <div class="stat" onclick="filterUsers('LEAVE')" style="cursor:pointer;">
+    Users On Leave<br>
+    <b id="usersOnLeave">0</b>
+</div>
+
+
+
+</div>
+
+<div class="card">
+<h3>Users Status</h3>
+<input type="text" id="searchInput" placeholder="Search users..." onkeyup="renderUsers()">
+<table>
+<thead>
+<tr>
+<th>Username</th>
+<th>Role</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody id="userTable"></tbody>
+</table>
+</div>
+
+<div class="card">
+<h3>Start / End Break</h3>
+
+<select id="breakType">
+<option value="Regular">Regular</option>
+<option value="Lunch">Lunch</option>
+<option value="Tea">Tea</option>
+<option value="Personal">Personal</option>
+</select>
+
+<br><br>
+
+<button onclick="startBreak()">Start Break</button>
+<button onclick="endBreak()">End Break</button>
+
+<div id="alertMsg"></div>
+<br>
+<div id="totalBreakDuration" class="alert-message" style="display:none;"></div>
+<div id="currentBreakTimer" class="alert-message" style="display:none;"></div>
+</div>
+<div class="card">
+    <h3>Login / Logout (Work Timer)</h3>
+
+    <button onclick="startWorkTimer()">Login</button>
+    <button onclick="stopWorkTimer()">Logout</button>
+
+    <br><br>
+
+    <div id="workTimer" class="alert-message" style="display:none;"></div>
+</div>
+<div class="card">
+    <h3>My Attendance</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Date (IST)</th>
+                <th>Login</th>
+                <th>Logout</th>
+                <th>Duration</th>
+            </tr>
+        </thead>
+        <tbody id="workLogTable"></tbody>
+    </table>
+</div>
+<div class="card">
+    <h3>Permission</h3>
+
+    <input type="number" id="permissionDuration" placeholder="Duration (minutes)" min="1">
+    <br><br>
+    <input type="text" id="permissionReason" placeholder="Reason">
+    <br><br>
+
+    <button onclick="startPermission()">Start Permission</button>
+    <button onclick="endPermission()">End Permission</button>
+
+    <div id="permissionTimer" class="alert-message" style="display:none;"></div>
+</div>
+<div class="card">
+    <h3>Apply Leave</h3>
+
+    <select id="leaveType">
+        <option value="Casual">Casual Leave</option>
+        <option value="Emergency">Emergency Leave</option>
+    </select>
+
+    <br><br>
+
+    <label>From Date</label><br>
+    <input type="date" id="leaveFrom">
+
+    <br><br>
+
+    <label>To Date</label><br>
+    <input type="date" id="leaveTo">
+
+    <br><br>
+
+    <div class="alert-message" id="leaveDays">Selected Days: 0</div>
+    <div class="alert-message" id="leaveBalance">Remaining Leaves: 0</div>
+
+    <br>
+
+    <button onclick="applyLeave()">Apply Leave</button>
+</div>
+
+<div class="card">
+    <h3>My Leave Calendar</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Days</th>
+            </tr>
+        </thead>
+        <tbody id="leaveTable"></tbody>
+    </table>
+</div>
+
+
+
+
+
+<script src="user.js"></script>
+</body>
+</html>

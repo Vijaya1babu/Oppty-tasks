@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel - Break System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div class="oppty-header">
+    <div class="oppty-brand">
+        <img src="./322343.png" alt="Oppty Logo">
+        <div class="oppty-brand-text">
+            <span>Admin Dashboard</span>
+        </div>
+    </div>
+
+    <div class="oppty-user">
+        <div class="oppty-avatar">A</div>
+        <div class="oppty-user-info">
+            <span>Admin</span>
+            <span>Administrator</span>
+        </div>
+        <button class="logout-btn" onclick="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
+    </div>
+</div>
+
+<div class="dashboard">
+    <div class="stat">
+        Total Users<br>
+        <b id="totalUsers">0</b>
+    </div>
+    <div class="stat">
+        Users On Break<br>
+        <b id="usersOnBreak">0</b>
+    </div>
+    <div class="stat">
+        Online Users<br>
+        <b id="onlineUsers">0</b>
+    </div>
+</div>
+
+<!-- ADD USER -->
+<div class="card">
+<h3>Add User</h3>
+<input id="uname" placeholder="Username">
+<input id="uemail" placeholder="Email"> 
+<input id="upass" placeholder="Password">
+<button onclick="addUser()">Add User</button>
+</div>
+
+<div class="card">
+<h3>Users Status</h3>
+
+<div style="display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap;">
+    <input id="userSearch" placeholder="Search users..." onkeyup="applyFilters()">
+    <select id="userFilter" onchange="applyFilters()">
+        <option value="">Sort / Filter</option>
+        <option value="az">Name A → Z</option>
+        <option value="za">Name Z → A</option>
+        <option value="online">ONLINE</option>
+        <option value="away">AWAY</option>
+        <option value="duration">Break Duration (High → Low)</option>
+        <option value="recent">Recent → Old</option>
+    </select>
+</div>
+
+<button class="download" onclick="downloadBreakTableExcel()">Download Break Table</button>
+
+<table>
+<thead>
+<tr>
+<th>User</th>
+<th>Email</th> 
+<th>Role</th>
+<th>Status</th>
+<th>Break Type</th>
+<th>Start</th>
+<th>End</th>
+<th>Duration</th>
+<th>Today Total</th>
+<th>Action</th>
+<th>Alert</th>
+</tr>
+</thead>
+<tbody id="userTable"></tbody>
+</table>
+</div>
+
+
+<div class="card">
+<h3>User Details (Edit & Delete)</h3>
+<div style="display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap;">
+    <input id="detailSearch" placeholder="Search user details..." onkeyup="applyDetailFilters()">
+    <select id="detailFilter" onchange="applyDetailFilters()">
+        <option value="">Sort / Filter</option>
+        <option value="az">Username A → Z</option>
+        <option value="za">Username Z → A</option>
+    </select>
+</div>
+<button class="download" onclick="downloadUsersExcel()">Download Users details</button>
+<table>
+<thead>
+<tr>
+<th>Username</th>
+<th>Email</th> 
+<th>Password</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="credTable"></tbody>
+</table>
+</div>
+<script src="admin.js"></script>
+</body>
+</html>

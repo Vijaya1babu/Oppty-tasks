@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>User / Admin Login - Oppty</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<!-- CSS FILE -->
+<link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+<div id="container" class="container sign-in">
+
+  <div class="row">
+  
+    <div class="col">
+      <div class="form-wrapper">
+        <div class="form sign-up">
+          <h2>Admin Login</h2>
+          <div class="input-group">
+            <i class='bx bxs-user'></i>
+            <input id="adminUser" type="text" placeholder="Admin Email">
+          </div>
+          <div class="input-group">
+            <i class='bx bxs-lock-alt'></i>
+            <input id="adminPass" type="password" placeholder="Password">
+          </div>
+          <button onclick="login('admin')">Login</button>
+          <p class="error" id="adminErr"></p>
+          <p>Are you a user? <span class="pointer" onclick="toggle()">User Login</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="form-wrapper">
+        <div class="form sign-in">
+          <h2>User Login</h2>
+          <div class="input-group">
+            <i class='bx bxs-user'></i>
+            <input id="userUser" type="text" placeholder="Email">
+          </div>
+          <div class="input-group">
+            <i class='bx bxs-lock-alt'></i>
+            <input id="userPass" type="password" placeholder="Password">
+          </div>
+          <button onclick="login('user')">Login</button>
+          <p class="error" id="userErr"></p>
+          <p>Are you an admin? <span class="pointer" onclick="toggle()">Admin Login</span></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="content-row">
+    <div class="text sign-in">
+      <img class="welcome-logo" src="./322343.png" alt="Oppty">
+      <h2>Welcome User</h2>
+      <p>Access your dashboard securely</p>
+    </div>
+    <div class="text sign-up">
+      <img class="welcome-logo" src="./322343.png" alt="Oppty">
+      <h2>Admin Access</h2>
+      <p>Manage system & users</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- JS FILE -->
+<script src="login.js"></script>
+</body>
+</html>
