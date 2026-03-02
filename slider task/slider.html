@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oppty Services Slider</title>
+  <style>
+    
+    .carousel-container { 
+      position: relative; 
+      width: 600px; 
+      margin: 50px auto; 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    #slider { 
+      display: flex; 
+      overflow: hidden; 
+      width: 100%; 
+      height: 350px;
+      border-radius: 8px;
+      scroll-behavior: smooth; 
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    /* Individual Slide Styling */
+    .slide { 
+      min-width: 100%; 
+      height: 100%; 
+      display: flex; 
+      flex-direction: column;
+      align-items: center; 
+      justify-content: center;
+      color: white;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    
+    .slide::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5); 
+      z-index: 1;
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .slide-content h2 {
+      margin-bottom: 15px;
+      font-size: 28px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+   
+    .service-btn {
+      padding: 10px 25px;
+      background-color: #f39c12;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .service-btn:hover {
+      background-color: #e67e22;
+    }
+
+ 
+    .nav-btn { 
+      position: absolute; 
+      top: 50%; 
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.6);
+      color: white;
+      border: none;
+      padding: 15px;
+      cursor: pointer;
+      border-radius: 50%;
+      z-index: 10;
+    }
+    #prevBtn { left: -60px; }
+    #nextBtn { right: -60px; }
+    .nav-btn:hover { background: #000; }
+  </style>
+</head>
+<body>
+
+<div class="carousel-container">
+  <div id="slider">
+    <div class="slide" style="background-image: url('./1.png');">
+      <div class="slide-content">
+        <h2>IT Services</h2>
+        <button class="service-btn" onclick="alert('Viewing IT Services')">Learn More</button>
+      </div>
+    </div>
+    
+    <div class="slide" style="background-image: url('./2.png');">
+      <div class="slide-content">
+        <h2>BPO</h2>
+        <button class="service-btn" onclick="alert('Viewing BPO Solutions')">Get Started</button>
+      </div>
+    </div>
+    
+    <div class="slide" style="background-image: url('./3.png');">
+      <div class="slide-content">
+        <h2>E-Commerce</h2>
+        <button class="service-btn" onclick="alert('Viewing E-Commerce Info')">Build Store</button>
+      </div>
+    </div>
+    
+    <div class="slide" style="background-image: url('./4.png');">
+      <div class="slide-content">
+        <h2>Web Development</h2>
+        <button class="service-btn" onclick="alert('Viewing Web Dev')">View Portfolio</button>
+      </div>
+    </div>
+    
+    <div class="slide" style="background-image: url('./5.png');">
+      <div class="slide-content">
+        <h2>AI Solutions</h2>
+        <button class="service-btn" onclick="alert('Viewing AI Solutions')">Innovate Now</button>
+      </div>
+    </div>
+  </div>
+
+  <button id="prevBtn" class="nav-btn">&#10094;</button>
+  <button id="nextBtn" class="nav-btn">&#10095;</button>
+</div>
+
+<script>
+  const slider = document.getElementById("slider");
+  const slides = document.querySelectorAll(".slide");
+  const nextBtn = document.getElementById("nextBtn");
+  const prevBtn = document.getElementById("prevBtn");
+
+  let currentIndex = 0;
+  let slideInterval;
+
+  function move(direction) {
+    currentIndex = (currentIndex + direction + slides.length) % slides.length;
+    slider.scrollTo({
+      left: currentIndex * slider.offsetWidth,
+      behavior: "smooth"
+    });
+    resetTimer();
+  }
+
+  nextBtn.addEventListener("click", () => move(1));
+  prevBtn.addEventListener("click", () => move(-1));
+
+  function startTimer() {
+    slideInterval = setInterval(() => move(1), 4000); // 4 seconds
+  }
+
+  function resetTimer() {
+    clearInterval(slideInterval);
+    startTimer();
+  }
+
+  startTimer();
+</script>
+
+</body>
+</html>
