@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --glass: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.4);
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+        }
+
+        * { box-sizing: border-box; transition: all 0.3s ease; }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            color: var(--text-dark);
+        }
+
+        /* SIDEBAR GLASS */
+        aside {
+            width: 260px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: white;
+            height: 100vh;
+            padding: 30px 20px;
+            position: fixed;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .side-link {
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+
+        .side-link:hover, .side-link.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .side-link.active {
+            background: var(--accent);
+            box-shadow: 0 8px 20px var(--accent-glow);
+        }
+
+        /* MAIN AREA */
+        main {
+            margin-left: 260px;
+            flex: 1;
+            padding: 40px;
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.07);
+            margin-bottom: 30px;
+        }
+
+        /* STATS GRID */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .stat-box {
+            background: var(--glass);
+            padding: 20px;
+            border-radius: 18px;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+        }
+
+        .stat-box i { font-size: 24px; margin-bottom: 10px; color: var(--accent); }
+        .stat-box h3 { margin: 5px 0; font-size: 14px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-box b { font-size: 24px; color: var(--text-dark); }
+
+        /* TABLES */
+        table { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
+        th { text-align: left; padding: 15px; color: var(--text-muted); font-weight: 600; font-size: 13px; }
+        td { padding: 15px; background: rgba(255,255,255,0.4); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); }
+        td:first-child { border-left: 1px solid var(--glass-border); border-radius: 12px 0 0 12px; }
+        td:last-child { border-right: 1px solid var(--glass-border); border-radius: 0 12px 12px 0; }
+
+        .row-img { width: 45px; height: 45px; border-radius: 10px; object-fit: cover; margin-right: 12px; vertical-align: middle; }
+
+        /* BADGES */
+        .badge { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+        .status-placed { background: #dbeafe; color: #1e40af; }
+        .status-shipped { background: #f3e8ff; color: #6b21a8; }
+        .status-delivered { background: #dcfce7; color: #166534; }
+        .badge-disabled { background: #fee2e2; color: #991b1b; }
+
+        button {
+            border: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-danger { background: #fee2e2; color: #ef4444; }
+        .btn-ship { background: #f3e8ff; color: #7c3aed; }
+        .btn-deliver { background: #dcfce7; color: #059669; }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            background: rgba(255,255,255,0.8);
+        }
+
+        .usage-bar { height: 6px; background: #e2e8f0; border-radius: 10px; margin-top: 8px; overflow: hidden; }
+        .usage-fill { height: 100%; background: var(--accent); }
+
+        h2 { margin-top: 0; font-weight: 800; }
+    </style>
+</head>
+<body>
+
+<aside>
+    <div class="logo"><i class="fa-solid fa-bolt"></i> OPPTY</div>
+    <div class="side-link active" onclick="nav('dash',this)"><i class="fa-solid fa-chart-pie"></i> Dashboard</div>
+    <div class="side-link" onclick="nav('orders',this)"><i class="fa-solid fa-shopping-bag"></i> Orders</div>
+    <div class="side-link" onclick="nav('inventory',this)"><i class="fa-solid fa-box"></i> Inventory</div>
+    <div class="side-link" onclick="nav('add',this)"><i class="fa-solid fa-plus-circle"></i> Add Product</div>
+    <div class="side-link" onclick="nav('cp',this)"><i class="fa-solid fa-ticket"></i> Coupons</div>
+<div class="side-link" onclick="window.location.href='index.html'">View Store</div>
+</aside>
+
+<main>
+    <div id="sec-dash">
+        <div class="stats-grid" id="statGrid"></div>
+        <div class="glass-card">
+            <h2>Per-Product Breakdown</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>PRODUCT</th>
+                        <th>UNITS SOLD</th>
+                        <th>REVENUE</th>
+                        <th>STOCK</th>
+                    </tr>
+                </thead>
+                <tbody id="breakdownTbody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="sec-orders" style="display:none">
+        <div class="glass-card">
+            <h2>Order Management</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>TIME</th>
+                        <th>TOTAL</th>
+                        <th>COUPON</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody id="orderTbody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="sec-inventory" style="display:none">
+        <div class="glass-card">
+            <h2>Product Inventory</h2>
+            <table>
+                <thead>
+                    <tr><th>IMAGE</th><th>NAME</th><th>CATEGORY</th><th>STOCK</th><th>PRICE</th><th>ACTION</th></tr>
+                </thead>
+                <tbody id="invTbody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="sec-add" style="display:none">
+        <div class="glass-card" style="max-width:600px">
+            <h2>Create New Product</h2>
+            <input id="pName" placeholder="Product Name">
+            <input id="pPrice" type="number" placeholder="Price (₹)">
+            <input id="pStock" type="number" placeholder="Stock Quantity">
+            <input id="pCat" placeholder="Category">
+            <input type="file" id="pFile">
+            <button class="btn-primary" onclick="saveProduct()" style="width: 100%; padding: 15px;">Save Product</button>
+        </div>
+    </div>
+
+    <div id="sec-cp" style="display:none">
+        <div class="glass-card" style="max-width:600px">
+            <h2>Create New Coupon</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <input id="cCode" placeholder="CODE">
+                <select id="cType">
+                    <option value="percent">Percent (%)</option>
+                    <option value="flat">Flat (₹)</option>
+                </select>
+            </div>
+            <input id="cVal" type="number" placeholder="Value">
+            <input id="cMin" type="number" placeholder="Min Order">
+            <input id="cMax" type="number" placeholder="Max Usage">
+            <button class="btn-primary" onclick="saveCoupon()" style="width: 100%;">Create Coupon</button>
+        </div>
+        <div class="glass-card">
+            <h2>Active Coupons</h2>
+            <table>
+                <thead>
+                    <tr><th>CODE</th><th>DISCOUNT</th><th>USAGE</th><th>STATUS</th><th>ACTION</th></tr>
+                </thead>
+                <tbody id="cpTbody"></tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<script>
+const Store = {
+    _db: 'sh_db_v2',
+    get() {
+        let data = JSON.parse(localStorage.getItem(this._db));
+        if (!data) {
+            data = {
+                products: [
+                    { id: 1, name: 'Travel Backpack', price: 3499, stock: 50, sold: 3, category: 'Accessories', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=100' },
+                    { id: 2, name: 'Smart Watch', price: 14999, stock: 20, sold: 2, category: 'Electronics', image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100' }
+                ],
+                orders: [],
+                coupons: [
+                    { code: 'WELCOME', type: 'percent', value: 15, minOrder: 500, uses: 7, maxUses: 200, status: 'active' },
+                    { code: 'SAVE20', type: 'percent', value: 20, minOrder: 999, uses: 3, maxUses: 50, status: 'active' }
+                ]
+            };
+            this.set(data);
+        }
+        return data;
+    },
+    set(d) { localStorage.setItem(this._db, JSON.stringify(d)); }
+};
+
+const fmt = n => "₹" + Number(n).toLocaleString('en-IN');
+
+function nav(id, el) {
+    ["dash", "orders", "inventory", "add", "cp"].forEach(x => {
+        document.getElementById("sec-" + x).style.display = x === id ? "block" : "none";
+    });
+    document.querySelectorAll(".side-link").forEach(x => x.classList.remove("active"));
+    el.classList.add("active");
+    if (id === "dash") renderDash();
+    if (id === "orders") renderOrders();
+    if (id === "inventory") renderInv();
+    if (id === "cp") renderCp();
+}
+
+function renderOrders() {
+    const d = Store.get();
+    document.getElementById("orderTbody").innerHTML = d.orders.map(o => {
+        const statusClass = `status-${o.status.toLowerCase()}`;
+        return `
+            <tr>
+                <td>#${o.id}</td>
+                <td>${o.time}</td>
+                <td><b>${fmt(o.total)}</b></td>
+                <td><span class="badge" style="background:#f1f5f9">${o.couponCode || "-"}</span></td>
+                <td><span class="badge ${statusClass}">${o.status}</span></td>
+                <td>
+                    <button class="btn-ship" onclick="updateStatus(${o.id}, 'Shipped')">Ship</button>
+                    <button class="btn-deliver" onclick="updateStatus(${o.id}, 'Delivered')">Deliver</button>
+                </td>
+            </tr>
+        `;
+    }).reverse().join("");
+}
+
+function updateStatus(orderId, newStatus) {
+    const d = Store.get();
+    const order = d.orders.find(o => o.id === orderId);
+    if(order) {
+        order.status = newStatus;
+        Store.set(d);
+        renderOrders();
+        // Feedback
+        const t = document.createElement("div");
+        t.style = "position:fixed; top:20px; right:20px; background:#10b981; color:white; padding:15px; border-radius:10px; z-index:9999;";
+        t.innerText = `Order #${orderId} marked as ${newStatus}`;
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 2000);
+    }
+}
+
+function renderDash() {
+    const d = Store.get();
+    const rev = d.orders.reduce((s, o) => s + o.total, 0);
+    const soldCount = d.products.reduce((s, p) => s + (p.sold || 0), 0);
+    const deliveredCount = d.orders.filter(o => o.status === 'Delivered').length;
+
+    document.getElementById("statGrid").innerHTML = `
+        <div class="stat-box"><i class="fa-solid fa-wallet"></i><h3>Total Revenue</h3><b>${fmt(rev)}</b></div>
+        <div class="stat-box"><i class="fa-solid fa-box-open"></i><h3>Products</h3><b>${d.products.length}</b></div>
+        <div class="stat-box"><i class="fa-solid fa-truck"></i><h3>Orders</h3><b>${d.orders.length}</b></div>
+        <div class="stat-box"><i class="fa-solid fa-circle-check"></i><h3>Delivered</h3><b>${deliveredCount}</b></div>
+    `;
+
+    document.getElementById("breakdownTbody").innerHTML = d.products.map(p => `
+        <tr>
+            <td><img src="${p.image}" class="row-img"><b>${p.name}</b></td>
+            <td>${p.sold || 0} units</td>
+            <td><b>${fmt((p.sold || 0) * p.price)}</b></td>
+            <td>${p.stock} left</td>
+        </tr>
+    `).join("");
+}
+
+function renderCp() {
+    const d = Store.get();
+    document.getElementById("cpTbody").innerHTML = d.coupons.map(c => `
+        <tr>
+            <td><span class="badge" style="background:#eef2ff; color:#4f46e5">${c.code}</span></td>
+            <td>${c.type === 'percent' ? c.value + '%' : fmt(c.value)}</td>
+            <td>${c.uses} / ${c.maxUses || '∞'}</td>
+            <td><span class="badge ${c.status !== 'disabled' ? 'badge-active' : 'badge-disabled'}">${c.status}</span></td>
+            <td><button class="btn-toggle" onclick="toggleCoupon('${c.code}')">Toggle</button></td>
+        </tr>
+    `).join("");
+}
+
+function toggleCoupon(code) {
+    const d = Store.get();
+    const c = d.coupons.find(x => x.code === code);
+    c.status = (c.status === 'disabled') ? 'active' : 'disabled';
+    Store.set(d);
+    renderCp();
+}
+
+function saveCoupon() {
+    const d = Store.get();
+    d.coupons.push({
+        code: document.getElementById("cCode").value.toUpperCase(),
+        type: document.getElementById("cType").value,
+        value: parseFloat(document.getElementById("cVal").value),
+        minOrder: parseFloat(document.getElementById("cMin").value) || 0,
+        maxUses: parseInt(document.getElementById("cMax").value) || 0,
+        uses: 0,
+        status: 'active'
+    });
+    Store.set(d);
+    renderCp();
+}
+
+function renderInv() {
+    document.getElementById("invTbody").innerHTML = Store.get().products.map(p => `
+        <tr>
+            <td><img src="${p.image}" class="row-img"></td>
+            <td>${p.name}</td>
+            <td>${p.category}</td>
+            <td>${p.stock}</td>
+            <td>${fmt(p.price)}</td>
+            <td><button class="btn-danger" onclick="delP(${p.id})">Delete</button></td>
+        </tr>
+    `).join("");
+}
+
+function delP(id) {
+    const d = Store.get();
+    d.products = d.products.filter(p => p.id !== id);
+    Store.set(d);
+    renderInv();
+}
+
+function saveProduct() {
+    const file = document.getElementById("pFile").files[0];
+    if(!file) return alert("Select an image");
+    const reader = new FileReader();
+    reader.onload = e => {
+        const d = Store.get();
+        d.products.push({
+            id: Date.now(),
+            name: document.getElementById("pName").value,
+            price: parseFloat(document.getElementById("pPrice").value),
+            stock: parseInt(document.getElementById("pStock").value),
+            sold: 0,
+            category: document.getElementById("pCat").value,
+            image: e.target.result
+        });
+        Store.set(d);
+        alert("Product Added!");
+        nav('inventory', document.querySelector('.side-link:nth-child(3)'));
+    };
+    reader.readAsDataURL(file);
+}
+
+renderDash();
+</script>
+</body>
+</html>
