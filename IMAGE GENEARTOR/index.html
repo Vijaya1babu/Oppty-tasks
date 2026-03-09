@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>VISIO — AI Image Studio</title>
+<script src="https://js.puter.com/v2/"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div id="app">
+
+<header id="topbar">
+  <div class="logo">Oppty <span> Studio</span></div>
+  <div class="ts"></div>
+  <div class="tb-btns">
+    <button class="tbb on" id="grid-btn" onclick="toggleGrid()">⊞ Grid</button>
+    <button class="tbb" id="snap-btn" onclick="toggleSnap()">⊹ Snap</button>
+    <button class="tbb" id="theme-btn" onclick="toggleTheme()">◐ Theme</button>
+    <button class="tbb" onclick="showEM()">↗ Export</button>
+    <button class="tbb" id="save-btn" onclick="saveProj()">💾 Save</button>
+  </div>
+</header>
+
+<aside id="ls">
+  <!-- GENERATE -->
+  <div class="pan">
+    <div class="ph open" onclick="togglePan(this)"><span>✦ Generate</span><span class="arr">›</span></div>
+    <div class="pb">
+      <button class="vbtn" id="vbtn" onclick="toggleVoice()">
+        <span id="vic">🎤</span><span id="vtxt">Speak something</span>
+      </button>
+      <textarea id="pi" placeholder="Type or speak " oninput="onPromptType()"></textarea>
+      <div class="rpb" onclick="randPrompt()">✦ Random Prompt</div>
+      <div class="stgr" id="stsel">
+        <div class="stb on" data-s="">Default</div>
+        <div class="stb" data-s="photorealistic">Photo</div>
+        <div class="stb" data-s="digital art">Digital Art</div>
+        <div class="stb" data-s="oil painting">Oil Paint</div>
+        <div class="stb" data-s="cinematic">Cinematic</div>
+        <div class="stb" data-s="anime">Anime</div>
+      </div>
+      <button class="btn bp" id="genbtn" onclick="genImg()"><span>✦</span> Generate Image</button>
+      <div style="font-size:.68rem;color:var(--txt3);font-family:'Syne',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Quick Prompts</div>
+      <div class="chips">
+        <span class="chip" onclick="fillP(this)">🎂 Birthday cake</span>
+        <span class="chip" onclick="fillP(this)">🪔 Diwali festival</span>
+        <span class="chip" onclick="fillP(this)">🌸 Cherry blossom</span>
+        <span class="chip" onclick="fillP(this)">🚀 Cyberpunk city</span>
+        <span class="chip" onclick="fillP(this)">🏔 Snowy mountains</span>
+        <span class="chip" onclick="fillP(this)">🌊 Deep ocean</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEXT TOOL -->
+  <div class="pan">
+    <div class="ph open" onclick="togglePan(this)"><span>✎ Text & Stickers</span><span class="arr">›</span></div>
+    <div class="pb">
+      <div class="ttp">
+        <input type="text" id="tc" placeholder="Type text… హ్యాపీ బర్త్‌డే" value="Hello World" oninput="onTxtInput()"/>
+        <select id="tf" onchange="updPrev()">
+          <option value="'DM Sans',sans-serif">DM Sans</option>
+          <option value="'Syne',sans-serif">Syne Bold</option>
+          <option value="Georgia,serif">Georgia</option>
+          <option value="'Courier New',monospace">Courier</option>
+          <option value="Impact,sans-serif">Impact</option>
+          <option value="'Arial Black',sans-serif">Arial Black</option>
+          <option value="'Noto Sans Telugu',sans-serif">🇮🇳 Telugu</option>
+          <option value="'Noto Sans Devanagari',sans-serif">🇮🇳 Hindi</option>
+          <option value="'Noto Sans Arabic',sans-serif">🕌 Arabic</option>
+        </select>
+        <div class="fr">
+          <label class="fl" style="width:42px">Size</label>
+          <input type="range" id="tsz" min="10" max="120" value="32" oninput="document.getElementById('tszv').textContent=this.value+'px';updPrev()" style="flex:1"/>
+          <span id="tszv" style="color:var(--acc);font-size:.7rem;min-width:32px">32px</span>
+        </div>
+        <div class="fr">
+          <label class="fl" style="flex:1">Color</label>
+          <input type="color" id="tcol" value="#ffffff" oninput="updPrev()"/>
+          <label class="fl" style="flex:1;margin-left:5px">Shadow</label>
+          <input type="color" id="tshc" value="#000000" oninput="updPrev()"/>
+        </div>
+        <div class="bg3">
+          <button class="btn bs bsm" id="bld-btn" onclick="togTS('bold')"><b>B</b> Bold</button>
+          <button class="btn bs bsm" id="ita-btn" onclick="togTS('italic')"><i>I</i> Italic</button>
+          <button class="btn bs bsm" id="shd-btn" onclick="togTS('shadow')">◫ Shadow</button>
+        </div>
+        <div class="fr">
+          <label class="fl" style="width:40px;font-size:.66rem">Align</label>
+          <div style="display:flex;gap:2px">
+            <div class="ab-btn on" id="al-l" onclick="setAl('left')">⬅</div>
+            <div class="ab-btn" id="al-c" onclick="setAl('center')">↔</div>
+            <div class="ab-btn" id="al-r" onclick="setAl('right')">➡</div>
+          </div>
+        </div>
+        <div class="fr">
+          <label class="fl" style="flex:1;font-size:.66rem">Stroke</label>
+          <input type="range" id="tst" min="0" max="8" value="0" oninput="document.getElementById('tstv').textContent=this.value+'px';updPrev()" style="flex:2"/>
+          <span id="tstv" style="color:var(--acc);font-size:.68rem;min-width:26px">0px</span>
+          <input type="color" id="tstc" value="#000000" style="margin-left:2px"/>
+        </div>
+        <div class="tprev" id="tprev">Hello World</div>
+        <button class="btn bp" onclick="addTxt()">✎ Add Text to Canvas</button>
+        <div style="font-size:.65rem;color:var(--txt3)">Quick Telugu Wishes:</div>
+        <div class="chips">
+          <span class="chip" onclick="setQT('హ్యాపీ బర్త్‌డే! 🎂')">🎂 Birthday</span>
+          <span class="chip" onclick="setQT('శుభాకాంక్షలు! 🎉')">🎉 Congrats</span>
+          <span class="chip" onclick="setQT('ప్రేమతో... 💖')">💖 Love</span>
+          <span class="chip" onclick="setQT('శుభోదయం ☀️')">☀️ Morning</span>
+          <span class="chip" onclick="setQT('Happy New Year! 🎆')">🎆 New Year</span>
+        </div>
+      </div>
+      <!-- EMOJI -->
+      <div class="ec">
+        <div style="font-family:'Syne',sans-serif;font-size:.7rem;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.05em">Emoji & Stickers</div>
+        <div class="ecats" id="ecats">
+          <div class="ecb on" onclick="swEC(this,'smileys')">😊</div>
+          <div class="ecb" onclick="swEC(this,'nature')">🌿</div>
+          <div class="ecb" onclick="swEC(this,'objects')">✨</div>
+          <div class="ecb" onclick="swEC(this,'symbols')">⭐</div>
+          <div class="ecb" onclick="swEC(this,'food')">🍕</div>
+          <div class="ecb" onclick="swEC(this,'travel')">🚀</div>
+          <div class="ecb" onclick="swEC(this,'telugu')">🪔</div>
+        </div>
+        <div class="egr" id="egr"></div>
+        <div class="fr">
+          <label class="fl" style="width:46px;font-size:.68rem">Size</label>
+          <input type="range" id="esz" min="20" max="120" value="48" oninput="document.getElementById('eszv').textContent=this.value+'px'" style="flex:1"/>
+          <span id="eszv" style="color:var(--acc);font-size:.68rem;min-width:32px">48px</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHAPES -->
+  <div class="pan">
+    <div class="ph open" onclick="togglePan(this)"><span>◈ Shapes</span><span class="arr">›</span></div>
+    <div class="pb">
+      <div class="sgr">
+        <div class="sb" onclick="addSh('square')"><span class="si">■</span>Square</div>
+        <div class="sb" onclick="addSh('rect')"><span class="si">▬</span>Rect</div>
+        <div class="sb" onclick="addSh('circle')"><span class="si">●</span>Circle</div>
+        <div class="sb" onclick="addSh('triangle')"><span class="si">▲</span>Tri</div>
+        <div class="sb" onclick="addSh('star')"><span class="si">★</span>Star</div>
+        <div class="sb" onclick="addSh('diamond')"><span class="si">◆</span>Diamond</div>
+        <div class="sb" onclick="addSh('pentagon')"><span class="si">⬠</span>Penta</div>
+        <div class="sb" onclick="addSh('hexagon')"><span class="si">⬡</span>Hexa</div>
+        <div class="sb" onclick="addSh('arrow')"><span class="si">➤</span>Arrow</div>
+        <div class="sb" onclick="addSh('heart')"><span class="si">♥</span>Heart</div>
+      </div>
+      <div class="fr">
+        <label class="fl" style="flex:1">Opacity <span id="sopv">80%</span></label>
+        <input type="range" id="sop" min="10" max="100" value="80" style="flex:2" oninput="updSop(this.value)"/>
+      </div>
+      <div class="fr">
+        <label class="fl" style="flex:1;font-size:.68rem">Fill Color</label>
+        <input type="color" id="scol" value="#7c6aff"/>
+        <label class="fl" style="flex:1;margin-left:5px;font-size:.68rem">Border</label>
+        <input type="color" id="sbcol" value="#ffffff"/>
+        <input type="range" id="sbw" min="0" max="8" value="0" style="width:46px;margin-left:4px" oninput="this.nextElementSibling.textContent=this.value+'px'"/>
+        <span style="color:var(--acc);font-size:.66rem;min-width:22px">0px</span>
+      </div>
+      <div class="bg2">
+        <button class="btn bs bsm" onclick="togAnim('float')">⟳ Float</button>
+        <button class="btn bs bsm" onclick="togAnim('glow')">✦ Glow</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FRAME -->
+  <div class="pan">
+    <div class="ph open" onclick="togglePan(this)"><span>⬡ Frame</span><span class="arr">›</span></div>
+    <div class="pb">
+      <div class="fr">
+        <label class="fl" style="width:52px;font-size:.68rem">BG</label>
+        <input type="color" id="fbg" value="#1a1a25" oninput="updFrame()"/>
+        <label class="fl" style="width:46px;font-size:.68rem;margin-left:4px">Border</label>
+        <input type="color" id="fbc" value="#ffffff" oninput="updFrame()"/>
+      </div>
+      <label class="fl">Roundness <span id="rnv">16px</span></label>
+      <input type="range" id="frn" min="0" max="50" value="16" oninput="updFrame()"/>
+      <label class="fl">Border <span id="bwv">3px</span></label>
+      <input type="range" id="fbw" min="0" max="20" value="3" oninput="updFrame()"/>
+      <label class="fl">Shadow <span id="shv">40</span></label>
+      <input type="range" id="fsh" min="0" max="100" value="40" oninput="updFrame()"/>
+      <label class="fl">Frame Size <span id="fsv">500</span></label>
+      <input type="range" id="fsz" min="200" max="720" value="500" oninput="updFSz()"/>
+      <div class="gpre">
+        <div class="gb on" style="background:linear-gradient(135deg,#1a1a25,#2a2a3a)" onclick="applyGrad(this,'#1a1a25','#2a2a3a')"></div>
+        <div class="gb" style="background:linear-gradient(135deg,#1a0533,#0d1f3c)" onclick="applyGrad(this,'#1a0533','#0d1f3c')"></div>
+        <div class="gb" style="background:linear-gradient(135deg,#003322,#001122)" onclick="applyGrad(this,'#003322','#001122')"></div>
+        <div class="gb" style="background:linear-gradient(135deg,#2d0a0a,#1a0000)" onclick="applyGrad(this,'#2d0a0a','#1a0000')"></div>
+        <div class="gb" style="background:linear-gradient(135deg,#f0efff,#ddd8ff)" onclick="applyGrad(this,'#f0efff','#ddd8ff')"></div>
+      </div>
+      <div class="bg2">
+        <button class="btn bs bsm" onclick="undo()">↩ Undo</button>
+        <button class="btn bs bsm" onclick="redo()">↪ Redo</button>
+      </div>
+      <div class="bg2">
+        <button class="btn bs bsm" onclick="resetFrame()">⟳ Reset</button>
+        <button class="btn bd bsm" onclick="clearAll()">✕ Clear All</button>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<main id="center">
+  <div id="sb">Speak or type a prompt — Generate ✦</div>
+  <div id="snap-ind">⊹ SNAP ON (40px grid)</div>
+  <div id="ca">
+    <div id="df">
+      <img id="fi" src="" alt="" draggable="false"/>
+      <div id="ph"><div class="phb">✦</div><p>Generate an image<br><span style="font-size:.63rem;opacity:.5">Any language supported</span></p></div>
+      <div id="lo">
+        <div class="lring"></div>
+        <div class="ltxt" id="lt">Processing…</div>
+        <div class="lsub" id="ls2">Please wait…</div>
+      </div>
+    </div>
+  </div>
+  <!-- CONTEXT BAR -->
+  <div id="ecb">
+    <button class="cb" id="editcb" onclick="editSelTxt()">✎ Edit</button>
+    <button class="cb" onclick="dupSel()">⧉ Dup</button>
+    <div class="csep"></div>
+    <button class="cb" onclick="togSelFlo()">⟳ Float</button>
+    <button class="cb" onclick="togSelGlo()">✦ Glow</button>
+    <div class="csep"></div>
+    <button class="cb" onclick="fwd()">↑</button>
+    <button class="cb" onclick="bwd()">↓</button>
+    <div class="csep"></div>
+    <button class="cb del-cb" onclick="delSel()">🗑 Delete</button>
+  </div>
+  <!-- CANVAS TOOLBAR -->
+  <div id="ctb">
+    <button class="btn bs bsm bi" onclick="zoom(-.1)" title="Zoom Out (-)">−</button>
+    <button class="btn bs bsm bi" onclick="zoom(.1)" title="Zoom In (+)">+</button>
+    <div class="sep"></div>
+    <button class="btn bs bsm bi" onclick="rotImg(-15)" title="Rotate Left">↺</button>
+    <button class="btn bs bsm bi" onclick="rotImg(15)" title="Rotate Right">↻</button>
+    <div class="sep"></div>
+    <button class="btn bs bsm" onclick="flipImg('h')" title="Flip Horizontal">↔</button>
+    <button class="btn bs bsm" onclick="flipImg('v')" title="Flip Vertical">↕</button>
+    <div class="sep"></div>
+    <button class="btn bs bsm" onclick="confetti()" title="Celebrate">🎉</button>
+    <button class="btn bd bsm" id="del-bottom-btn" onclick="clearCanvas()" title="Delete canvas output image">🗑 Canvas</button>
+    <div class="sep"></div>
+    <button class="btn bp bsm" onclick="showEM()">↗ Export</button>
+  </div>
+  <div id="zbdg">100%</div>
+</main>
+
+<aside id="rs">
+  <!-- CONTROLS -->
+  <div class="ctrl-pan">
+    <div class="ctrl-ph open" onclick="toggleCtrl(this)">
+      <span><span class="ctrl-icon">⌘</span> CONTROLS</span>
+      <span class="arr">▼</span>
+    </div>
+    <div class="ctrl-body" id="ctrl-body">
+      <div class="ctrl-grid">
+        <button class="ctrl-btn undo-btn" onclick="undo()" title="Undo (Ctrl+Z)">↩ Undo</button>
+        <button class="ctrl-btn redo-btn" onclick="redo()" title="Redo (Ctrl+Y)">↪ Redo</button>
+        <button class="ctrl-btn reset-btn" onclick="resetAll()" title="Reset canvas view & filters">⟳ Reset</button>
+        <button class="ctrl-btn clear-btn" onclick="clearCanvas()" title="Clear canvas output">✕ Clear</button>
+      </div>
+      <button class="ctrl-dl-btn" onclick="dlCanvas('png')">↗ Download Image</button>
+    </div>
+  </div>
+
+  <!-- IMAGE -->
+  <div class="pan">
+    <div class="ph open" onclick="togglePan(this)"><span>◎ Image</span><span class="arr">›</span></div>
+    <div class="pb">
+      <label class="fl">Blur <span id="blv">0px</span></label>
+      <input type="range" id="ibl" min="0" max="20" value="0" oninput="updIF()"/>
+      <label class="fl">Brightness <span id="brv">100%</span></label>
+      <input type="range" id="ibr" min="50" max="200" value="100" oninput="updIF()"/>
+      <label class="fl">Contrast <span id="cov">100%</span></label>
+      <input type="range" id="ico" min="50" max="200" value="100" oninput="updIF()"/>
+      <label class="fl">Saturation <span id="sav">100%</span></label>
+      <input type="range" id="isa" min="0" max="200" value="100" oninput="updIF()"/>
+      <label class="fl">Hue <span id="huv">0°</span></label>
+      <input type="range" id="ihu" min="0" max="360" value="0" oninput="updIF()"/>
+      <div class="xfr">
+        <div class="xfb" onclick="togDrag()" id="dragbtn">↔ Drag</div>
+        <div class="xfb" onclick="zoom(.12)">⊕ +</div>
+        <div class="xfb" onclick="zoom(-.12)">⊖ −</div>
+      </div>
+      <div class="fgr">
+        <div class="fb on" onclick="applyF(this,'none')"><span class="fe">○</span>None</div>
+        <div class="fb" onclick="applyF(this,'cartoon')"><span class="fe">🎨</span>Cartoon</div>
+        <div class="fb" onclick="applyF(this,'anime')"><span class="fe">✨</span>Anime</div>
+        <div class="fb" onclick="applyF(this,'cyberpunk')"><span class="fe">⚡</span>Cyber</div>
+        <div class="fb" onclick="applyF(this,'vintage')"><span class="fe">📷</span>Vintage</div>
+        <div class="fb" onclick="applyF(this,'watercolor')"><span class="fe">💧</span>Water</div>
+        <div class="fb" onclick="applyF(this,'noir')"><span class="fe">🎭</span>Noir</div>
+        <div class="fb" onclick="applyF(this,'golden')"><span class="fe">✨</span>Golden</div>
+      </div>
+      <button class="btn bs bsm" onclick="resetIF()">↩ Reset Filters</button>
+    </div>
+  </div>
+
+  <!-- SELECTED PROPS -->
+  <div class="pan">
+    <div class="ph open" onclick="togglePan(this)"><span>✎ Selected</span><span class="arr">›</span></div>
+    <div class="pb" id="spp"><div style="text-align:center;color:var(--txt3);font-size:.7rem;padding:7px">Select an element to edit</div></div>
+  </div>
+
+  <!-- LAYERS -->
+  <div class="pan">
+    <div class="ph open" onclick="togglePan(this)"><span>⧉ Layers</span><span class="arr">›</span></div>
+    <div class="pb">
+      <div id="ll"></div>
+      <div class="bg2" style="margin-top:3px">
+        <button class="btn bs bsm" onclick="fwd()">↑ Fwd</button>
+        <button class="btn bs bsm" onclick="bwd()">↓ Bwd</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EFFECTS -->
+  <div class="pan">
+    <div class="ph open" onclick="togglePan(this)"><span>✦ Effects</span><span class="arr">›</span></div>
+    <div class="pb">
+      <div class="bg2">
+        <button class="btn bs bsm" id="flobtn" onclick="floAll()">⟳ Float All</button>
+        <button class="btn bs bsm" id="gloBtn" onclick="gloAll()">✦ Glow All</button>
+      </div>
+      <label class="fl">Glow Color</label>
+      <input type="color" id="gcol" value="#7c6aff" oninput="updFrame()"/>
+      <label class="fl">Glow Size <span id="gsv">40</span></label>
+      <input type="range" id="gsz" min="0" max="120" value="40" oninput="updFrame()"/>
+      <button class="btn bs bsm" onclick="confetti()">🎉 Confetti!</button>
+      <button class="btn bp bsm" onclick="showEM()">↗ Download</button>
+    </div>
+  </div>
+</aside>
+</div>
+
+<div id="em">
+  <div class="mb">
+    <div class="mt">Export <span class="mc" onclick="closeEM()">×</span></div>
+    <div style="display:flex;flex-direction:column;gap:7px">
+      <div class="bg2">
+        <button class="tbb on" id="e1x" onclick="setEQ(1)">1× Normal</button>
+        <button class="tbb" id="e2x" onclick="setEQ(2)">2× Retina</button>
+      </div>
+      <button class="btn bp" onclick="dlCanvas('png')">⬇ Download PNG</button>
+      <button class="btn bs" onclick="dlCanvas('jpg')">⬇ Download JPG</button>
+      <button class="btn bs" onclick="cpClip()">📋 Copy to Clipboard</button>
+      <button class="btn bs" onclick="closeEM()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="notif"></div>
+<canvas id="xc" style="display:none"></canvas>
+<script src="./script.js"></script>
+</body>
+</html>
+
